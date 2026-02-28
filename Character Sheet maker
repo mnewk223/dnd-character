@@ -1,0 +1,3674 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#b01818" />
+
+  <title>Dungeons and Dragons Character Builder</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet" />
+
+  <!-- Favicon (optional, replace with your own if desired) -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+</head>
+  <!-- Primary Styles -->
+  <style>
+    :root{
+      --ink:#1b1b1b;
+      --ink2:#333;
+      --paper:#f7f1e3;
+      --paper2:#f1e8d3;
+      --line: rgba(152,133,88);
+      --line2: rgba(0,0,0,.16);
+      --shadow: rgba(0,0,0,.22);
+      --shadow2: rgba(0,0,0,.12);
+      --accent:#b01818;
+      --accent2:#7f1010;
+
+      --deskimg: url("https://thumbs.dreamstime.com/b/fantasy-adventure-map-background-compass-mountains-hand-drawn-fantasy-style-map-mountains-forests-coastlines-409108480.jpg");
+      --leatherimg: url("https://img.freepik.com/free-photo/grunge-style-old-sepia-toned-paper-background_1048-18916.jpg?semt=ais_hybrid&w=740&q=80");
+    }
+
+    body.dark{
+      --ink:#f2f2f2;
+      --ink2:#d6d6d6;
+      --paper:#141414;
+      --paper2:#0f0f0f;
+      --line: rgba(255,255,255,.18);
+      --line2: rgba(255,255,255,.10);
+      --shadow: rgba(0,0,0,.68);
+      --shadow2: rgba(0,0,0,.40);
+      --accent:#ff3b3b;
+      --accent2:#a80000;
+    }
+  :root{
+    --ink:#1b1b1b;
+    --ink2:#333;
+    --paper:#f7f1e3;
+    --paper2:#f1e8d3;
+    --line: rgba(152, 133, 88);
+    --line2: rgba(0,0,0,.16);
+    --shadow: rgba(0,0,0,.22);
+    --shadow2: rgba(0,0,0,.12);
+    --accent:#b01818;
+    --accent2:#7f1010;
+
+    /* change these URLs any time */
+    --deskimg: url("https://thumbs.dreamstime.com/b/fantasy-adventure-map-background-compass-mountains-hand-drawn-fantasy-style-map-mountains-forests-coastlines-409108480.jpg");
+    --leatherimg: url("https://img.freepik.com/free-photo/grunge-style-old-sepia-toned-paper-background_1048-18916.jpg?semt=ais_hybrid&w=740&q=80");
+  }
+
+  body.dark{
+    --ink:#f2f2f2;
+    --ink2:#d6d6d6;
+    --paper:#141414;
+    --paper2:#0f0f0f;
+    --line: rgba(255,255,255,.18);
+    --line2: rgba(255,255,255,.10);
+    --shadow: rgba(0,0,0,.68);
+    --shadow2: rgba(0,0,0,.40);
+    --accent:#ff3b3b;
+    --accent2:#a80000;
+  }
+
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 30% 10%, rgba(255,255,255,.18), transparent 45%),
+      radial-gradient(circle at 70% 90%, rgba(0,0,0,.18), transparent 55%),
+      linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.35)),
+      var(--deskimg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  body.dark{
+    background:
+      radial-gradient(circle at 30% 10%, rgba(255,255,255,.08), transparent 45%),
+      radial-gradient(circle at 70% 90%, rgba(0,0,0,.30), transparent 55%),
+      linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.70)),
+      var(--deskimg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .wrap{ max-width: 1240px; margin: 22px auto; padding: 0 14px 30px; }
+
+  .bookUI{
+    border-radius: 20px;
+    padding: 18px;
+    position: relative;
+    overflow: visible;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,.14), transparent 55%),
+      radial-gradient(circle at 80% 80%, rgba(0,0,0,.28), transparent 55%),
+      linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.22)),
+      var(--leatherimg);
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(255,255,255,.22);
+    box-shadow:
+      0 26px 90px rgba(0,0,0,.50),
+      0 14px 35px rgba(0,0,0,.35),
+      inset 0 0 0 2px rgba(255,255,255,.08),
+      inset 0 0 0 10px rgba(0,0,0,.18);
+  }
+  body.dark .bookUI{
+    border-color: rgba(255,255,255,.12);
+    box-shadow:
+      0 26px 90px rgba(0,0,0,.70),
+      0 14px 35px rgba(0,0,0,.55),
+      inset 0 0 0 2px rgba(255,255,255,.06),
+      inset 0 0 0 10px rgba(0,0,0,.28);
+  }
+
+  .bookUI::before{
+    content:"";
+    position:absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 10px;
+    width: 30px;
+    border-radius: 16px;
+    background:
+      linear-gradient(90deg,
+        rgba(0,0,0,.55),
+        rgba(255,255,255,.08) 35%,
+        rgba(0,0,0,.38) 75%,
+        rgba(0,0,0,.55));
+    opacity: .70;
+    pointer-events:none;
+  }
+
+  header.topbar{ position:relative; display:flex; flex-direction:column; gap:10px; margin-bottom:12px; }
+
+  .title{
+    font-family: "Cinzel Decorative", "IM Fell English", Georgia, serif;
+    font-size: 60px;
+    color: var(--accent);
+    letter-spacing: .04em;
+    line-height: 1.0;
+    font-weight: 900;
+    text-shadow:
+      0 2px 0 rgba(255,255,255,.30),
+      0 12px 30px rgba(0,0,0,.25);
+  }
+
+  .topRight{ position:absolute; right:0; top:0; display:flex; gap:10px; align-items:center; }
+
+  .toggle{
+    display:inline-flex; gap:10px; align-items:center;
+    border:1px solid rgba(255,255,255,.22);
+    background: rgba(255,255,255,.18);
+    color: var(--ink);
+    padding: 8px 12px;
+    border-radius: 999px;
+    cursor:pointer;
+    font-weight: 900;
+    user-select:none;
+    backdrop-filter: blur(6px);
+  }
+  body.dark .toggle{ background: rgba(0,0,0,.38); border-color: rgba(255,255,255,.12); }
+  .toggle .dot{
+    width: 34px; height: 20px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.22);
+    position: relative;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+  }
+  body.dark .toggle .dot{ background: rgba(255,255,255,.06); }
+  .toggle .dot::after{
+    content:""; position:absolute; top:50%; left:3px; transform: translateY(-50%);
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent);
+    transition: left 200ms ease;
+    box-shadow: 0 6px 14px rgba(0,0,0,.25);
+  }
+  body.dark .toggle .dot::after{ left: 17px; }
+
+  .tabs{ display:flex; gap:8px; flex-wrap:wrap; width:100%; }
+  .tab{
+    border:1px solid rgba(255,255,255,.22);
+    background: rgba(255,255,255,.16);
+    color: var(--ink);
+    padding: 8px 12px;
+    border-radius: 999px;
+    cursor:pointer;
+    font-weight: 900;
+    backdrop-filter: blur(6px);
+  }
+  body.dark .tab{ background: rgba(0,0,0,.35); border-color: rgba(255,255,255,.12); }
+  .tab.active{
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    color:#fff;
+    border-color: rgba(0,0,0,.35);
+    box-shadow: 0 10px 26px rgba(176,24,24,.25);
+  }
+
+  .pages{
+    position: relative;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    perspective: 1900px;
+    overflow: visible;
+  }
+  .turner{
+    position:absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    pointer-events:none;
+    transform-style: preserve-3d;
+    transform-origin: left center;
+    opacity: 0;
+    z-index: 40;
+  }
+  .turner .front,
+  .turner .back{
+    position:absolute;
+    inset:0;
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 22% 18%, rgba(255,255,255,.35), transparent 40%),
+      radial-gradient(circle at 70% 80%, rgba(0,0,0,.10), transparent 55%),
+      linear-gradient(180deg, var(--paper), var(--paper2));
+    border: 2px solid var(--line);
+    box-shadow:
+      0 18px 55px rgba(0,0,0,.30),
+      inset 0 0 0 2px rgba(255,255,255,.16);
+    backface-visibility: hidden;
+  }
+  .turner .back{ transform: rotateY(180deg); filter: brightness(.97); }
+  .pages.turning .turner{
+    opacity: 1;
+    animation: turnPage 720ms cubic-bezier(.15,.9,.05,1) forwards;
+  }
+  @keyframes turnPage{ 0%{ transform: rotateY(0deg);} 100%{ transform: rotateY(-180deg);} }
+
+  .page{
+    position:relative;
+    border-radius: 18px;
+    padding: 14px;
+    overflow:hidden;
+    z-index: 2;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(255,255,255,.38), transparent 55%),
+      radial-gradient(circle at 78% 86%, rgba(0,0,0,.08), transparent 58%),
+      linear-gradient(180deg, var(--paper), var(--paper2));
+    border: 2px solid var(--line);
+    box-shadow:
+      0 12px 40px var(--shadow),
+      inset 0 0 0 2px rgba(255,255,255,.16);
+  }
+  body.dark .page{
+    box-shadow:
+      0 12px 40px rgba(0,0,0,.70),
+      inset 0 0 0 2px rgba(255,255,255,.06);
+  }
+
+  .panel{ display:none; }
+  .panel.active{ display:block; }
+
+  .card{
+    background: rgba(255,255,255,.35);
+    border: 1px solid var(--line2);
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.14),
+      0 8px 22px rgba(0,0,0,.10);
+    margin-bottom: 12px;
+  }
+  body.dark .card{ background: rgba(0,0,0,.28); }
+
+  .card h3{
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--ink2);
+    border-bottom: 1px solid var(--line2);
+    padding-bottom: 6px;
+    margin: 0 0 10px 0;
+    font-family: "IM Fell English", Georgia, serif;
+  }
+
+  .grid{ display:grid; gap: 10px; }
+  .grid.grid-12{ grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+  label{
+    display:block;
+    letter-spacing:.06em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--ink2);
+    margin-bottom: 6px;
+  }
+
+  input, select, textarea{
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,.12);
+    border-bottom: 2px solid var(--line);
+    background: rgba(255,255,255,.28);
+    padding: 9px 10px 7px;
+    outline:none;
+    border-radius: 12px;
+    color: var(--ink);
+    font-family: "IM Fell English", Georgia, serif;
+  }
+  body.dark input, body.dark select, body.dark textarea{
+    background: rgba(255,255,255,.06);
+    border-color: rgba(255,255,255,.10);
+  }
+
+  textarea{ min-height: 110px; resize: vertical; }
+  .muted{ opacity:.78; font-size: 12px; }
+
+  .modBox{
+    margin-top: 6px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width: 54px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(255,255,255,.18);
+    font-weight: 900;
+    color: var(--ink);
+  }
+  body.dark .modBox{ background: rgba(255,255,255,.06); }
+
+  button{
+    border:1px solid rgba(255,255,255,.22);
+    background: rgba(255,255,255,.16);
+    color: var(--ink);
+    padding: 9px 12px;
+    border-radius: 12px;
+    cursor:pointer;
+    font-weight: 900;
+    backdrop-filter: blur(6px);
+  }
+  body.dark button{ background: rgba(0,0,0,.35); border-color: rgba(255,255,255,.12); }
+  button.primary{
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    color:#fff;
+    border-color: rgba(0,0,0,.35);
+  }
+  button.danger{
+    background: linear-gradient(180deg, #2b2b2b, #141414);
+    color:#fff;
+    border-color: rgba(0,0,0,.45);
+  }
+
+  button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    filter:saturate(.7);
+  }
+
+  .btnRow{ display:flex; gap:10px; flex-wrap: wrap; align-items:center; }
+
+  .miniGrid{ display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px; }
+  .miniCard{
+    background: rgba(255,255,255,.18);
+    border: 1px solid var(--line2);
+    border-radius: 14px;
+    padding: 10px;
+  }
+  body.dark .miniCard{ background: rgba(255,255,255,.06); }
+  .miniCard .name{
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-size: 12px;
+    font-weight: 900;
+    margin-bottom: 6px;
+    font-family: "IM Fell English", Georgia, serif;
+  }
+  .miniCard .line{ font-size: 12px; opacity: .92; }
+  .miniCard .pick{ margin-top: 8px; display:flex; gap:8px; align-items:center; }
+
+  .counterBar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+    padding: 8px 10px;
+    border-radius: 14px;
+    border: 1px solid var(--line2);
+    background: rgba(255,255,255,.18);
+  }
+  body.dark .counterBar{ background: rgba(255,255,255,.06); }
+  .filtersRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .filtersRow .search{ flex: 1; min-width: 180px; }
+
+  .portraitFrame{
+    margin-top: 10px;
+    padding: 14px;
+    border-radius: 18px;
+    border: 2px solid var(--line);
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,.18), transparent 55%),
+      radial-gradient(circle at 80% 80%, rgba(255,255,255,.12), transparent 55%),
+      linear-gradient(180deg, rgba(0,0,0,.10), rgba(255,255,255,.08));
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height: 220px;
+    overflow:hidden;
+  }
+  .portraitFrame img{
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 14px;
+    border: 1px solid var(--line2);
+  }
+
+  .bottomBar{
+    position: sticky;
+    bottom: 0;
+    margin-top: 14px;
+    border-top: 1px solid rgba(255,255,255,.18);
+    background: rgba(0,0,0,.00);
+    padding: 10px 12px;
+    border-radius: 16px;
+    z-index: 10;
+  }
+  .bottomBar .btnrow{
+    display:flex;
+    gap:10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  /* checkbox rows */
+  .checkRow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding: 6px 8px;
+    border: 1px solid var(--line2);
+    border-radius: 12px;
+    background: rgba(255,255,255,.12);
+    margin-bottom: 8px;
+  }
+  body.dark .checkRow{ background: rgba(255,255,255,.05); }
+  .checkRow .left{ display:flex; align-items:center; gap:10px; }
+  .checkRow .name{ font-weight: 900; letter-spacing:.06em; text-transform: uppercase; font-size: 11px; }
+  .checkRow .meta{ font-size: 12px; opacity:.8; }
+  .checkRow input[type="checkbox"]{ width:auto; transform: scale(1.1); }
+
+  .invTable{ width:100%; border-collapse: collapse; }
+  .invTable th, .invTable td{
+    border-bottom: 1px solid var(--line2);
+    padding: 8px 6px;
+    font-size: 12px;
+    text-align:left;
+    vertical-align: top;
+  }
+  .invTable th{
+    text-transform: uppercase;
+    letter-spacing:.08em;
+    font-size: 11px;
+    opacity:.85;
+  }
+
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border: 1px solid var(--line2);
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.14);
+    font-weight: 900;
+  }
+  body.dark .pill{ background: rgba(255,255,255,.06); }
+
+  /* =========================================================
+     SUBCLASS LOCK (visual only; logic is in script)
+     Keep look the same; just provide a hidden utility.
+  ========================================================= */
+  .hidden{ display:none !important; }
+
+  /* =========================================================
+     PRINT / PDF
+  ========================================================= */
+  #printArea{ display:none; }
+
+  @media print{
+    @page{ size: letter; margin: 10mm; }
+    *{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    body{ background:#fff !important; color:#000 !important; }
+    .wrap, .bookUI, .bottomBar{ display:none !important; }
+    #printArea{ display:block !important; font-family: Arial, sans-serif; color:#000; }
+
+    .pPage{ page-break-after: always; }
+    .pPage:last-child{ page-break-after: auto; }
+
+    .pHeader{
+      border: 2px solid #000;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    .pHeader .row{
+      display:grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .pField{
+      border: 1px solid #000;
+      padding: 6px;
+      min-height: 34px;
+    }
+    .pLabel{
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing:.10em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .pVal{ font-size: 12px; white-space: pre-wrap; }
+    .nameBig{
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .pGrid1{
+      display:grid;
+      grid-template-columns: 62mm 62mm 62mm 1fr;
+      gap: 8px;
+      align-items:start;
+    }
+    .pBox{
+      border: 2px solid #000;
+      padding: 8px;
+      break-inside: avoid;
+    }
+    .pBox h3{
+      margin: 0 0 6px 0;
+      font-size: 10px;
+      letter-spacing:.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #000;
+      padding-bottom: 4px;
+    }
+
+    .pStat{
+      border: 2px solid #000;
+      padding: 6px;
+      margin-bottom: 8px;
+      text-align:center;
+    }
+    .pStat .sName{ font-size: 10px; font-weight:900; letter-spacing:.12em; text-transform: uppercase; }
+    .pStat .sVal{ font-size: 22px; font-weight: 900; margin: 4px 0; }
+    .pStat .sMod{ border-top: 1px solid #000; padding-top: 4px; font-size: 12px; font-weight: 900; }
+
+    .pListRow{
+      display:flex;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid #000;
+      padding: 4px 0;
+      font-size: 11px;
+    }
+    .pListRow .n{ font-weight: 900; }
+    .pListRow .v{ font-weight: 900; }
+
+    .pSmallLines{
+      min-height: 140px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0,0,0,0) 0,
+          rgba(0,0,0,0) 5.0mm,
+          rgba(0,0,0,.20) 5.1mm,
+          rgba(0,0,0,.20) 5.2mm
+        );
+      padding: 6px;
+      border: 1px solid #000;
+      white-space: pre-wrap;
+      font-size: 11px;
+      line-height: 1.25;
+    }
+
+    .pGrid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items:start;
+    }
+    .pPortraitPrint{
+      border: 2px solid #000;
+      padding: 8px;
+    }
+
+    .pCards{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .pCard{
+      border: 2px solid #000;
+      padding: 8px;
+      min-height: 42mm;
+      break-inside: avoid;
+    }
+    .pCard .n{
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing:.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #000;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+    .pCard .d{ font-size: 11px; white-space: pre-wrap; line-height: 1.25; }
+
+    /* Big blank inventory page */
+    .pInvBlankGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .pInvBlankTable{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    .pInvBlankTable th, .pInvBlankTable td{
+      border: 1px solid #000;
+      padding: 6px;
+      vertical-align: top;
+      height: 10mm;
+    }
+    .pInvBlankTable th{
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .10em;
+    }
+  }
+
+  @media (max-width: 980px){
+    .pages{ grid-template-columns: 1fr; }
+    .turner{ display:none; }
+  }
+</style>
+<body>
+  <div class="wrap">
+    <main class="bookUI">
+      <header class="topbar">
+        <div class="title">Dungeons and Dragons</div>
+
+        <div class="topRight">
+          <button
+            id="darkToggle"
+            class="toggle"
+            type="button"
+            aria-label="Toggle dark mode"
+            role="switch"
+            aria-checked="false"
+          >
+            <span id="darkLabel">Dark</span>
+            <span class="dot" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <nav class="tabs" role="tablist">
+          <button class="tab active" data-tab="character" type="button" role="tab" aria-selected="true">Character</button>
+          <button class="tab" data-tab="abilities" type="button" role="tab" aria-selected="false">Abilities</button>
+          <button class="tab" data-tab="spells" type="button" role="tab" aria-selected="false">Spells</button>
+          <button class="tab" data-tab="weapons" type="button" role="tab" aria-selected="false">Weapons</button>
+          <button class="tab" data-tab="inventory" type="button" role="tab" aria-selected="false">Inventory</button>
+        </nav>
+      </header>
+
+      <div class="pages" id="pages">
+        <div class="turner" id="turner" aria-hidden="true"><div class="front"></div><div class="back"></div></div>
+
+        <!-- LEFT PAGE -->
+        <section class="page left">
+          <!-- CHARACTER TAB (LEFT) -->
+          <div class="panel active" id="panel-character-left">
+            <div class="card">
+              <h3>Identity</h3>
+              <div class="grid grid-12">
+                <div style="grid-column: span 6;">
+                  <label for="playerName">Player Name</label>
+                  <input id="playerName" />
+                </div>
+
+                <div style="grid-column: span 6;">
+                  <label for="charName">Character Name</label>
+                  <input id="charName" />
+                  <div style="margin-top:8px;">
+                    <button class="primary" id="btnAutoName" type="button">Auto-Generate Name</button>
+                  </div>
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="gender">Gender</label>
+                  <select id="gender">
+                    <option value="">— Select —</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Non-binary</option>
+                  </select>
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="race">Race</label>
+                  <select id="race"></select>
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="subrace">Subrace</label>
+                  <select id="subrace"></select>
+                </div>
+
+                <div style="grid-column: span 6;">
+                  <label for="class">Class</label>
+                  <select id="class"></select>
+                </div>
+
+                <!-- ✅ SUBCLASS LOCKED until class is valid -->
+                <div style="grid-column: span 6;">
+                  <label for="subclass">Subclass</label>
+                  <select id="subclass" disabled></select>
+                  <div id="subclassLockHint" class="muted" style="margin-top:6px;">
+                    Choose a class to unlock subclass options.
+                  </div>
+                </div>
+
+                <div style="grid-column: span 6;">
+                  <label for="background">Background</label>
+                  <select id="background"></select>
+                </div>
+
+                <div style="grid-column: span 6;">
+                  <label for="alignment">Alignment</label>
+                  <select id="alignment">
+                    <option value="">— Select —</option>
+                    <option>Lawful Good</option><option>Neutral Good</option><option>Chaotic Good</option>
+                    <option>Lawful Neutral</option><option>Neutral</option><option>Chaotic Neutral</option>
+                    <option>Lawful Evil</option><option>Neutral Evil</option><option>Chaotic Evil</option>
+                  </select>
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="level">Level</label>
+                  <input id="level" type="number" value="1" min="1" max="20" />
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="inspiration">Inspiration</label>
+                  <select id="inspiration">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="profBonus">Proficiency</label>
+                  <input id="profBonus" readonly />
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Personality</h3>
+              <div class="muted" id="personalityHint">Selections change based on Background.</div>
+              <div style="height:10px;"></div>
+              <div class="grid grid-12">
+                <div style="grid-column: span 12;">
+                  <label for="trait">Trait</label>
+                  <select id="trait"></select>
+                </div>
+                <div style="grid-column: span 12;">
+                  <label for="ideal">Ideal</label>
+                  <select id="ideal"></select>
+                </div>
+                <div style="grid-column: span 12;">
+                  <label for="bond">Bond</label>
+                  <select id="bond"></select>
+                </div>
+                <div style="grid-column: span 12;">
+                  <label for="flaw">Flaw</label>
+                  <select id="flaw"></select>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Backstory</h3>
+              <label for="backstory">Backstory</label>
+              <textarea id="backstory" placeholder="Write your origin, goals, secrets..."></textarea>
+            </div>
+
+            <div class="card">
+              <h3>General Notes</h3>
+              <label for="notes">Notes</label>
+              <textarea id="notes" placeholder="Allies, rivals, plot hooks..."></textarea>
+            </div>
+          </div>
+
+          <!-- ABILITIES TAB (LEFT) -->
+          <div class="panel" id="panel-abilities-left">
+            <div class="card">
+              <h3>Ability Scores</h3>
+
+              <div class="btnRow" style="margin-bottom:10px;">
+                <button class="primary" id="btnAutoStats" type="button">Auto-Generate Ability Scores</button>
+                <button id="btnRerollStats" type="button">Reroll Stats</button>
+              </div>
+
+              <div class="grid grid-12">
+                <div style="grid-column: span 4;">
+                  <label for="STR">STR</label>
+                  <input id="STR" type="number" value="10" />
+                  <div id="modSTR" class="modBox">+0</div>
+                </div>
+                <div style="grid-column: span 4;">
+                  <label for="DEX">DEX</label>
+                  <input id="DEX" type="number" value="10" />
+                  <div id="modDEX" class="modBox">+0</div>
+                </div>
+                <div style="grid-column: span 4;">
+                  <label for="CON">CON</label>
+                  <input id="CON" type="number" value="10" />
+                  <div id="modCON" class="modBox">+0</div>
+                </div>
+                <div style="grid-column: span 4;">
+                  <label for="INT">INT</label>
+                  <input id="INT" type="number" value="10" />
+                  <div id="modINT" class="modBox">+0</div>
+                </div>
+                <div style="grid-column: span 4;">
+                  <label for="WIS">WIS</label>
+                  <input id="WIS" type="number" value="10" />
+                  <div id="modWIS" class="modBox">+0</div>
+                </div>
+                <div style="grid-column: span 4;">
+                  <label for="CHA">CHA</label>
+                  <input id="CHA" type="number" value="10" />
+                  <div id="modCHA" class="modBox">+0</div>
+                </div>
+
+                <div style="grid-column: span 12;">
+                  <label for="passivePerception">Passive Perception</label>
+                  <input id="passivePerception" readonly />
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Combat Basics</h3>
+              <div class="grid grid-12">
+                <div style="grid-column: span 4;">
+                  <label for="speed">Speed</label>
+                  <input id="speed" />
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="armorType">Armor Type</label>
+                  <select id="armorType"></select>
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="ac">Armor Class</label>
+                  <input id="ac" />
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="initiative">Initiative</label>
+                  <input id="initiative" />
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="hp">Current HP</label>
+                  <input id="hp" />
+                </div>
+
+                <div style="grid-column: span 4;">
+                  <label for="tempHp">Temp HP</label>
+                  <input id="tempHp" />
+                </div>
+
+                <div style="grid-column: span 6;">
+                  <label for="maxHp">Max HP</label>
+                  <input id="maxHp" readonly />
+                </div>
+
+                <div style="grid-column: span 6;">
+                  <label for="hitDice">Hit Dice</label>
+                  <input id="hitDice" readonly />
+                </div>
+              </div>
+
+              <div class="btnRow" style="margin-top:10px;">
+                <button class="primary" id="levelUp" type="button">Level Up +1</button>
+                <button id="applyAutofill" type="button">Re-Autofill</button>
+              </div>
+            </div>
+
+            <!-- ✅ SAVING THROWS: auto-mods + proficiency budget -->
+            <div class="card">
+              <h3>Saving Throws</h3>
+              <div class="counterBar" style="margin-bottom:10px;">
+                <div class="pill">Proficiencies left: <span id="saveProfLeft">0</span></div>
+                <div class="pill">Total allowed: <span id="saveProfTotal">0</span></div>
+              </div>
+              <div id="saveList"></div>
+              <!-- script will inject rows -->
+            </div>
+
+            <!-- ✅ SKILLS: auto-mods + proficiency budget -->
+            <div class="card">
+              <h3>Skills</h3>
+              <div class="counterBar" style="margin-bottom:10px;">
+                <div class="pill">Proficiencies left: <span id="skillProfLeft">0</span></div>
+                <div class="pill">Total allowed: <span id="skillProfTotal">0</span></div>
+              </div>
+              <div id="skillList"></div>
+              <!-- script will inject rows -->
+            </div>
+          </div>
+
+          <!-- SPELLS TAB (LEFT) -->
+          <div class="panel" id="panel-spells-left">
+            <div class="card">
+              <h3>Spells</h3>
+
+              <div class="counterBar">
+                <div class="pill">Ability: <span id="spellAbilityText">—</span></div>
+                <div class="pill">Save DC: <span id="spellDCText">—</span></div>
+                <div class="pill">Attack: <span id="spellAtkText">—</span></div>
+                <div class="pill">Spells left: <span id="spellsLeft">0</span></div>
+              </div>
+
+              <div class="filtersRow">
+                <input id="spellSearch" class="search" placeholder="Search spells..." />
+                <select id="spellLevelFilter">
+                  <option value="">All levels</option>
+                  <option value="0">Cantrips</option>
+                  <option value="1">Level 1</option>
+                  <option value="2">Level 2</option>
+                  <option value="3">Level 3</option>
+                  <option value="4">Level 4</option>
+                  <option value="5">Level 5</option>
+                  <option value="6">Level 6</option>
+                  <option value="7">Level 7</option>
+                  <option value="8">Level 8</option>
+                  <option value="9">Level 9</option>
+                </select>
+              </div>
+
+              <div style="margin-top:10px;" id="spellCards" class="miniGrid"></div>
+            </div>
+          </div>
+
+          <!-- WEAPONS TAB (LEFT) -->
+          <div class="panel" id="panel-weapons-left">
+            <div class="card">
+              <h3>Weapons</h3>
+
+              <div class="counterBar">
+                <div class="pill">Weapons left: <span id="weaponsLeft">0</span></div>
+                <input id="weaponSearch" class="search" placeholder="Search weapons..." />
+              </div>
+
+              <div id="weaponCards" class="miniGrid"></div>
+            </div>
+          </div>
+
+          <!-- INVENTORY TAB (LEFT) -->
+          <div class="panel" id="panel-inventory-left">
+            <div class="card">
+              <h3>Encumbrance</h3>
+              <div class="grid grid-12">
+                <div style="grid-column: span 6;">
+                  <label for="carryCapacity">Carry Capacity (lb)</label>
+                  <input id="carryCapacity" readonly />
+                </div>
+                <div style="grid-column: span 6;">
+                  <label for="carryTotal">Total Carried (lb)</label>
+                  <input id="carryTotal" readonly />
+                </div>
+                <div style="grid-column: span 12;">
+                  <label for="carryStatus">Status</label>
+                  <input id="carryStatus" readonly />
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Add Inventory Item</h3>
+              <div class="grid grid-12">
+                <div style="grid-column: span 6;">
+                  <label for="invItemName">Item</label>
+                  <input id="invItemName" placeholder="Rope, Potion, Torch..." />
+                </div>
+                <div style="grid-column: span 3;">
+                  <label for="invItemQty">Qty</label>
+                  <input id="invItemQty" type="number" min="1" value="1" />
+                </div>
+                <div style="grid-column: span 3;">
+                  <label for="invItemWt">Each (lb)</label>
+                  <input id="invItemWt" type="number" min="0" step="0.1" value="0" />
+                </div>
+              </div>
+              <div class="btnRow" style="margin-top:10px;">
+                <button class="primary" id="btnAddInv" type="button">Add Item</button>
+                <button id="btnClearInv" type="button">Clear Inventory</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Inventory Notes</h3>
+              <textarea id="inventoryNotes" placeholder="Ammo counts, rations, special loot..."></textarea>
+            </div>
+
+            <div class="card">
+              <h3>Inventory List</h3>
+              <div style="overflow:auto;">
+                <table class="invTable">
+                  <thead>
+                    <tr><th>Item</th><th>Qty</th><th>Each</th><th>Total</th><th></th></tr>
+                  </thead>
+                  <tbody id="invTbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT PAGE -->
+        <section class="page right">
+          <!-- CHARACTER TAB (RIGHT) -->
+          <div class="panel active" id="panel-character-right">
+            <div class="card">
+              <h3>Portrait</h3>
+              <input id="portraitFile" type="file" accept="image/*" />
+              <div class="portraitFrame">
+                <img id="portraitImg" style="display:none;" alt="Character portrait preview" />
+                <div id="portraitPlaceholder" class="muted">Upload Image</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Appearance</h3>
+              <div class="grid grid-12">
+                <div style="grid-column: span 4;"><label for="age">Age</label><input id="age" /></div>
+                <div style="grid-column: span 4;"><label for="height">Height</label><input id="height" /></div>
+                <div style="grid-column: span 4;"><label for="weight">Weight</label><input id="weight" /></div>
+                <div style="grid-column: span 4;"><label for="hair">Hair</label><input id="hair" /></div>
+                <div style="grid-column: span 4;"><label for="eyes">Eyes</label><input id="eyes" /></div>
+                <div style="grid-column: span 4;"><label for="skin">Skin</label><input id="skin" /></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Reference Info</h3>
+              <label>Class</label>
+              <textarea id="classInfoBox" readonly></textarea>
+              <div style="height:10px;"></div>
+              <label>Subclass</label>
+              <textarea id="subclassInfoBox" readonly></textarea>
+              <div style="height:10px;"></div>
+              <label>Race</label>
+              <textarea id="raceInfoBox" readonly></textarea>
+              <div style="height:10px;"></div>
+              <label>Subrace</label>
+              <textarea id="subraceInfoBox" readonly></textarea>
+            </div>
+          </div>
+
+          <!-- ABILITIES TAB (RIGHT) -->
+          <div class="panel" id="panel-abilities-right">
+            <div class="card">
+              <h3>Ability / Skill Notes</h3>
+              <label for="featuresTraits">Features &amp; Traits Notes</label>
+              <textarea id="featuresTraits" placeholder="Racial traits, class features, feats, special notes..."></textarea>
+            </div>
+          </div>
+
+          <!-- SPELLS TAB (RIGHT) -->
+          <div class="panel" id="panel-spells-right">
+            <div class="card">
+              <h3>Spell Notes (Player Fill-In)</h3>
+              <textarea id="spellNotes" placeholder="Write spell notes here... (this stays blank unless the player types)"></textarea>
+            </div>
+          </div>
+
+          <!-- WEAPONS TAB (RIGHT) -->
+          <div class="panel" id="panel-weapons-right">
+            <div class="card">
+              <h3>Weapon Notes (Auto-filled)</h3>
+              <textarea id="weaponNotes" readonly></textarea>
+            </div>
+          </div>
+
+          <!-- INVENTORY TAB (RIGHT) -->
+          <div class="panel" id="panel-inventory-right">
+            <div class="card">
+              <h3>Inventory Summary</h3>
+              <textarea id="inventorySummary" readonly></textarea>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="bottomBar">
+        <div class="btnrow">
+          <button class="primary" id="btnExportPdf" type="button">Export PDF</button>
+          <button id="btnSave" type="button">Save</button>
+          <button id="btnLoad" type="button">Load</button>
+          <button class="danger" id="btnReset" type="button">Reset</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PRINT AREA (kept hidden; script fills these IDs) -->
+  <section id="printArea" aria-hidden="true">
+    <div id="p_pages">
+      <div class="printPage" id="p_page1">
+        <div class="pHeader">
+          <div class="nameBig" id="p_charName">Character Name</div>
+          <div class="pVal" id="p_metaLine">Class • Level • Background • Player • Race • Alignment</div>
+        </div>
+
+        <div class="pGrid1">
+          <div class="pBox">
+            <h3>Ability Scores</h3>
+            <div id="p_abilities"></div>
+          </div>
+
+          <div class="pBox">
+            <h3>Saving Throws</h3>
+            <div id="p_saves"></div>
+            <div style="height:8px;"></div>
+            <h3>Skills</h3>
+            <div id="p_skills"></div>
+          </div>
+
+          <div class="pBox">
+            <h3>Combat</h3>
+            <div id="p_combat" class="pVal"></div>
+
+            <div style="height:8px;"></div>
+
+            <h3>Personality</h3>
+            <div id="p_personality" class="pVal"></div>
+          </div>
+
+          <div class="pBox">
+            <h3>Notes</h3>
+            <div id="p_notesMini" class="pSmallLines"></div>
+          </div>
+        </div>
+
+        <div class="pBox" style="margin-top:10px;">
+          <h3>Features &amp; Traits</h3>
+          <div id="p_featuresTraits" class="pSmallLines"></div>
+        </div>
+      </div>
+
+      <div class="printPage" id="p_page2">
+        <div class="pHeader">
+          <div class="nameBig" id="p_charName2">Character Name</div>
+          <div class="pVal" id="p_appearanceLine">Age • Height • Weight • Eyes • Skin • Hair</div>
+        </div>
+
+        <div class="pGrid2">
+          <div class="pBox">
+            <h3>Appearance</h3>
+            <div id="p_appearance" class="pVal"></div>
+            <div style="height:10px;"></div>
+            <h3>Portrait</h3>
+            <div id="p_portraitWrap" class="pPortraitPrint"></div>
+          </div>
+
+          <div class="pBox">
+            <h3>Backstory</h3>
+            <div id="p_backstory" class="pSmallLines"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="printPage" id="p_page3">
+        <div class="pHeader">
+          <div class="nameBig" id="p_charName3">Character Name</div>
+          <div class="pVal">Weapons &amp; Inventory</div>
+        </div>
+
+        <div class="pGrid2">
+          <div class="pBox">
+            <h3>Weapons</h3>
+            <div id="p_weapons"></div>
+          </div>
+
+          <div class="pBox">
+            <h3>Inventory</h3>
+            <div id="p_inventoryTable"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="printPage" id="p_page4">
+        <div class="pHeader">
+          <div class="nameBig" id="p_charName4">Character Name</div>
+          <div class="pVal">Spells</div>
+        </div>
+
+        <div class="pBox">
+          <h3>Spells</h3>
+          <div id="p_spells"></div>
+        </div>
+
+        <div class="pBox" style="margin-top:10px;">
+          <h3>Spell Notes</h3>
+          <div class="pSmallLines"></div>
+        </div>
+      </div>
+
+      <div class="printPage" id="p_page5">
+        <div class="pHeader">
+          <div class="nameBig" id="p_charName5">Character Name</div>
+          <div class="pVal">Notes • Treasure • Attunement</div>
+        </div>
+
+        <div class="pGrid2">
+          <div class="pBox">
+            <h3>Inventory Notes</h3>
+            <div id="p_inventoryNotes" class="pSmallLines"></div>
+          </div>
+          <div class="pBox">
+            <h3>Treasure &amp; Attunement</h3>
+            <div id="p_treasureAttune" class="pSmallLines"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="p_dynamicRefPages"></div>
+    </div>
+  </section>
+</body>
+<script>
+(() => {
+  "use strict";
+
+  /* =========================================================
+     HELPERS
+  ========================================================= */
+  const $ = (id) => document.getElementById(id);
+  const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+  const safe = (v) => (v == null ? "" : String(v));
+  const num = (v, d = 0) => {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : d;
+  };
+  const mod = (score) => Math.floor((num(score, 10) - 10) / 2);
+  const fmtMod = (n) => (n >= 0 ? "+" : "") + n;
+  const pb = (level) => 2 + Math.floor((num(level, 1) - 1) / 4);
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+  const LS_KEY = "dn_sheet_v3";
+
+  function canAuto(el, force = false) {
+    if (!el) return false;
+    if (force) return true;
+    if (el.dataset?.auto === "false") return false;
+    return !String(el.value || "").trim() || el.dataset?.auto === "true";
+  }
+  function setAuto(el, value) {
+    if (!el) return;
+    el.value = value;
+    if (el.dataset) el.dataset.auto = "true";
+  }
+  function markManual(el) {
+    if (!el) return;
+    if (el.dataset) el.dataset.auto = "false";
+  }
+
+  function capN(arr, n) {
+    const out = Array.isArray(arr) ? [...arr] : [];
+    if (out.length >= n) return out.slice(0, n);
+    // If the user’s dataset is short, pad with blanks that still show as choices.
+    while (out.length < n) out.push("—");
+    return out;
+  }
+
+  /* =========================================================
+     ELEMENTS
+  ========================================================= */
+  const el = {
+    // UI
+    pages: $("pages"),
+    turner: $("turner"),
+    darkToggle: $("darkToggle"),
+    darkLabel: $("darkLabel"),
+
+    tabButtons: $$(".tab[data-tab], .tabBtn[data-tab]"),
+
+    // Identity
+    playerName: $("playerName"),
+    charName: $("charName"),
+    gender: $("gender"),
+    race: $("race"),
+    subrace: $("subrace"),
+    cls: $("class"),
+    subclass: $("subclass"),
+    subclassLockHint: $("subclassLockHint"),
+    background: $("background"),
+    alignment: $("alignment"),
+    level: $("level"),
+    profBonus: $("profBonus"),
+
+    // Personality
+    trait: $("trait"),
+    ideal: $("ideal"),
+    bond: $("bond"),
+    flaw: $("flaw"),
+    personalityHint: $("personalityHint"),
+
+    // Abilities
+    STR: $("STR"),
+    DEX: $("DEX"),
+    CON: $("CON"),
+    INT: $("INT"),
+    WIS: $("WIS"),
+    CHA: $("CHA"),
+
+    // Combat derived
+    speed: $("speed"),
+    armorType: $("armorType"),
+    ac: $("ac"),
+    initiative: $("initiative"),
+    hp: $("hp"),
+    tempHp: $("tempHp"),
+    maxHp: $("maxHp"),
+    hitDice: $("hitDice"),
+    passivePerception: $("passivePerception"),
+
+    // Buttons
+    btnAutoName: $("btnAutoName"),
+    btnAutoStats: $("btnAutoStats"),
+    btnRerollStats: $("btnRerollStats"),
+    levelUp: $("levelUp"),
+    applyAutofill: $("applyAutofill"),
+    btnExportPdf: $("btnExportPdf"),
+    btnSave: $("btnSave"),
+    btnLoad: $("btnLoad"),
+    btnReset: $("btnReset"),
+
+    // Portrait
+    portraitFile: $("portraitFile"),
+    portraitImg: $("portraitImg"),
+    portraitPlaceholder: $("portraitPlaceholder"),
+
+    // Lists
+    saveList: $("saveList"),
+    skillList: $("skillList"),
+    saveProfLeft: $("saveProfLeft"),
+    saveProfTotal: $("saveProfTotal"),
+    skillProfLeft: $("skillProfLeft"),
+    skillProfTotal: $("skillProfTotal"),
+
+    // Spells
+    spellCards: $("spellCards"),
+    spellSearch: $("spellSearch"),
+    spellLevelFilter: $("spellLevelFilter"),
+    spellsLeft: $("spellsLeft"),
+    spellAbilityText: $("spellAbilityText"),
+    spellDCText: $("spellDCText"),
+    spellAtkText: $("spellAtkText"),
+
+    // Weapons
+    weaponCards: $("weaponCards"),
+    weaponSearch: $("weaponSearch"),
+    weaponsLeft: $("weaponsLeft"),
+
+    // Inventory (minimal)
+    invItemName: $("invItemName"),
+    invItemQty: $("invItemQty"),
+    invItemWt: $("invItemWt"),
+    btnAddInv: $("btnAddInv"),
+    btnClearInv: $("btnClearInv"),
+    invTbody: $("invTbody"),
+    carryCapacity: $("carryCapacity"),
+    carryTotal: $("carryTotal"),
+    carryStatus: $("carryStatus"),
+    inventoryNotes: $("inventoryNotes"),
+
+    // Right page info boxes
+    classInfoBox: $("classInfoBox"),
+    subclassInfoBox: $("subclassInfoBox"),
+    raceInfoBox: $("raceInfoBox"),
+    subraceInfoBox: $("subraceInfoBox"),
+    featuresTraits: $("featuresTraits"),
+    weaponNotes: $("weaponNotes"),
+    inventorySummary: $("inventorySummary"),
+
+    // Print targets
+    p_charName: $("p_charName"),
+    p_metaLine: $("p_metaLine"),
+    p_abilities: $("p_abilities"),
+    p_saves: $("p_saves"),
+    p_skills: $("p_skills"),
+    p_combat: $("p_combat"),
+    p_personality: $("p_personality"),
+    p_notesMini: $("p_notesMini"),
+    p_featuresTraits: $("p_featuresTraits"),
+    p_charName2: $("p_charName2"),
+    p_appearanceLine: $("p_appearanceLine"),
+    p_appearance: $("p_appearance"),
+    p_portraitWrap: $("p_portraitWrap"),
+    p_backstory: $("p_backstory"),
+    p_charName3: $("p_charName3"),
+    p_weapons: $("p_weapons"),
+    p_inventoryTable: $("p_inventoryTable"),
+    p_charName4: $("p_charName4"),
+    p_spells: $("p_spells"),
+    p_charName5: $("p_charName5"),
+    p_inventoryNotes: $("p_inventoryNotes"),
+    p_treasureAttune: $("p_treasureAttune"),
+  };
+
+  /* =========================================================
+     DATA
+     - Personality now guaranteed: 8 each per background per type
+     - Spells: 10 per caster class per level (0–9) with descriptions
+     - Weapons: descriptions included
+  ========================================================= */
+
+  const DATA = {
+    races: {
+      "Aarakocra": ["Base"],
+      "Aasimar": ["Base", "Fallen", "Protector", "Scourge"],
+      "Autognome": ["Base"],
+      "Bugbear": ["Base"],
+      "Centaur": ["Base"],
+      "Changeling": ["Base"],
+      "Dragonborn": ["Base", "Chromatic", "Metallic", "Gem"],
+      "Dwarf": ["Hill", "Mountain", "Duergar"],
+      "Elf": ["High", "Wood", "Dark (Drow)", "Eladrin"],
+      "Gnome": ["Forest", "Rock", "Deep (Svirfneblin)"],
+      "Half Elf": ["Base"],
+      "Half-Orc": ["Base"],
+      "Halfling": ["Lightfoot", "Stout"],
+      "Human": ["Base", "Variant"],
+      "Tiefling": ["Base"],
+      "Tortle": ["Base"],
+    },
+
+    classes: {
+      "Barbarian": ["Path of the Berserker", "Path of the Totem Warrior", "Path of the Zealot"],
+      "Bard": ["College of Lore", "College of Valor", "College of Eloquence"],
+      "Cleric": ["Life Domain", "Light Domain", "War Domain", "Grave Domain"],
+      "Druid": ["Circle of the Land", "Circle of the Moon", "Circle of Wildfire"],
+      "Fighter": ["Champion", "Battle Master", "Eldritch Knight"],
+      "Gunslinger": ["Gunslinger"],
+      "Monk": ["Way of the Open Hand", "Way of Shadow", "Way of Mercy"],
+      "Paladin": ["Oath of Devotion", "Oath of Vengeance", "Oath of Ancients"],
+      "Ranger": ["Hunter", "Beast Master", "Gloom Stalker"],
+      "Rogue": ["Thief", "Assassin", "Arcane Trickster", "Swashbuckler"],
+      "Sorcerer": ["Draconic Bloodline", "Wild Magic", "Divine Soul"],
+      "Warlock": ["The Fiend", "The Great Old One", "The Archfey", "The Hexblade"],
+      "Wizard": ["Evocation", "Abjuration", "Divination", "Necromancy"],
+      "Blood Hunter": ["Order of the Lycan", "Order of the Ghostslayer", "Order of the Profane Soul"],
+    },
+
+    backgrounds: [
+      "Acolyte","Charlatan","Criminal","Entertainer","Folk Hero","Guild Artisan","Hermit","Noble","Outlander","Sage","Sailor","Soldier","Urchin",
+    ],
+
+    // ✅ 8 each per background (trait/ideal/bond/flaw)
+    personalityByBackground: {
+      "Acolyte": {
+        trait: [
+          "I quote sacred texts in everyday conversation.",
+          "I keep my gear clean and my conscience cleaner.",
+          "I treat every stranger as a potential convert.",
+          "I’m calm in crisis; faith is an anchor.",
+          "I’m endlessly curious about other beliefs.",
+          "I speak softly and carry quiet authority.",
+          "I see omens in small coincidences.",
+          "I volunteer for the unpleasant duties others avoid.",
+        ],
+        ideal: [
+          "Tradition. Ancient rites must be preserved.",
+          "Charity. I always help those in need.",
+          "Faith. My beliefs guide my actions.",
+          "Change. Old dogma must yield to truth.",
+          "Truth. Honest answers are holy work.",
+          "Community. We rise together, or not at all.",
+          "Mercy. Forgiveness is strength.",
+          "Duty. I serve something greater than myself.",
+        ],
+        bond: [
+          "I would die to recover a lost relic of my order.",
+          "I owe my life to the priest who raised me.",
+          "My temple is my family—its safety is my mission.",
+          "A vision set me on this path, and I must see it through.",
+          "I protect a secret that could shake the faithful.",
+          "I have sworn to guide a wayward soul back to light.",
+          "My mentor vanished; I’ll find what took them.",
+          "I carry a token from someone I failed—and I won’t fail again.",
+        ],
+        flaw: [
+          "I judge others too quickly by my code.",
+          "I’m stubborn when my faith is questioned.",
+          "I can’t resist trying to “fix” people.",
+          "I take on guilt that isn’t mine to carry.",
+          "I’m naïve about worldly motives.",
+          "I fear being abandoned by my deity.",
+          "I keep secrets even when honesty would help.",
+          "I overextend myself until I collapse.",
+        ],
+      },
+
+      "Charlatan": {
+        trait: [
+          "I’m always working an angle—even when I don’t need to.",
+          "I can’t help but read people like a book.",
+          "I always have a backup plan (and a backup identity).",
+          "I love a good story more than a good meal.",
+          "I’m charming until the moment I’m not.",
+          "I talk fast when I’m excited or cornered.",
+          "I keep my hands busy—coins, cards, anything.",
+          "I’m allergic to boredom and routine.",
+        ],
+        ideal: [
+          "Independence. No one owns me.",
+          "Freedom. Rules exist to be bent.",
+          "Ambition. I’ll be someone the world remembers.",
+          "Greed. Coin solves most problems.",
+          "Creativity. A clever con is art.",
+          "Fairness. I only cheat those who deserve it.",
+          "Survival. I do what I must to keep going.",
+          "Reputation. Fear and fame are both useful.",
+        ],
+        bond: [
+          "Someone taught me the trade—I owe them everything.",
+          "I have a “mark” I will never betray.",
+          "A rival ruined my life; I will repay them.",
+          "I keep proof of a powerful person’s secret.",
+          "I’m searching for the one con that will set me free.",
+          "My old crew thinks I’m dead—and it must stay that way.",
+          "I carry a keepsake from my first scam.",
+          "I promised I’d return stolen goods… someday.",
+        ],
+        flaw: [
+          "I lie reflexively—even when truth would work.",
+          "I’m addicted to risk.",
+          "I can’t resist showing off when I’m winning.",
+          "I trust nobody… and that’s a problem.",
+          "I get cruel when I feel powerless.",
+          "I panic when my lies start to overlap.",
+          "I never walk away from a profitable lead.",
+          "I hold grudges like treasure.",
+        ],
+      },
+
+      "Criminal": {
+        trait: [
+          "I always sit where I can see the exits.",
+          "I keep my voice low and my eyes moving.",
+          "I’m polite—until I’m not.",
+          "I don’t flinch. Ever.",
+          "I know the value of a favor.",
+          "I hate wasting time on pointless talk.",
+          "I have a code, even if it’s not legal.",
+          "I make friends cautiously and deeply.",
+        ],
+        ideal: [
+          "Honor. My word is my bond.",
+          "Power. No one pushes me around.",
+          "Freedom. I refuse to be caged.",
+          "Greed. I take what I can.",
+          "Loyalty. My crew comes first.",
+          "Justice. The law isn’t the same as right.",
+          "Redemption. I can be more than my past.",
+          "Pragmatism. The job gets done.",
+        ],
+        bond: [
+          "I owe a debt to a dangerous patron.",
+          "My sibling is in trouble; I do crimes to protect them.",
+          "I stole something that can’t be replaced.",
+          "I’m hunting the person who framed me.",
+          "A friend took the fall for me—I’ll repay them.",
+          "I keep a safehouse that only I know.",
+          "I’m tied to the thieves’ guild—whether I like it or not.",
+          "I promised to leave this life behind… after one last job.",
+        ],
+        flaw: [
+          "I can’t resist a challenge to my pride.",
+          "I’m suspicious of everyone’s motives.",
+          "I lash out when I feel cornered.",
+          "I underestimate “lawful” people until it’s too late.",
+          "I’m quick to violence when stressed.",
+          "I hoard resources even when sharing is smarter.",
+          "I can’t let insults go.",
+          "I’m haunted by one job that went wrong.",
+        ],
+      },
+
+      "Entertainer": {
+        trait: [
+          "I’m happiest on a stage—even an improvised one.",
+          "I tell stories to keep fear away.",
+          "I’m always collecting gossip and applause.",
+          "I can turn any room into an audience.",
+          "I practice constantly—hands, voice, footwork.",
+          "I treat everyone like a potential fan.",
+          "I’m dramatic, even when whispering.",
+          "I use humor as a shield.",
+        ],
+        ideal: [
+          "Beauty. The world needs wonder.",
+          "Freedom. Life is a performance—improvise.",
+          "Tradition. Great art honors the past.",
+          "Expression. Truth comes out in song and story.",
+          "Fame. I want my name remembered.",
+          "Friendship. Shared joy binds people.",
+          "Courage. I’ll sing even in darkness.",
+          "Perfection. Mastery is worth the pain.",
+        ],
+        bond: [
+          "I’d do anything for the troupe that raised me.",
+          "I’m searching for the perfect song/story.",
+          "A patron believes in me—I won’t disappoint them.",
+          "I owe my instrument to someone I can never repay.",
+          "I carry a love letter that keeps me going.",
+          "A rival stole my spotlight—I’ll take it back.",
+          "I promised a dying fan I’d perform again.",
+          "My act hides a secret message only a few can read.",
+        ],
+        flaw: [
+          "I can’t stand being ignored.",
+          "I exaggerate… a lot.",
+          "I sabotage rivals when I feel threatened.",
+          "I flee commitment like stage fright.",
+          "I chase applause even when it’s dangerous.",
+          "I talk when I should listen.",
+          "I’m easily flattered and easily manipulated.",
+          "I drink to calm my nerves.",
+        ],
+      },
+
+      "Folk Hero": {
+        trait: [
+          "I’m most comfortable with honest work.",
+          "I stand up for the little guy without thinking.",
+          "I’m slow to trust, but faster to defend.",
+          "I prefer plain speech and plain food.",
+          "I keep promises, even inconvenient ones.",
+          "I’m stubborn as a mule.",
+          "I make friends wherever I go.",
+          "I’ve got calluses and pride to match.",
+        ],
+        ideal: [
+          "Respect. People deserve dignity.",
+          "Fairness. No one should be above the rules.",
+          "Community. We protect our own.",
+          "Courage. Fear is natural; quitting isn’t.",
+          "Generosity. What I have, I share.",
+          "Aspiration. I can be more than my station.",
+          "Honesty. Lies rot from the inside.",
+          "Tradition. The old ways matter.",
+        ],
+        bond: [
+          "My village is counting on me.",
+          "I carry the hopes of my family.",
+          "A tyrant hurt my people—I’ll end them.",
+          "I’m protecting a secret escape route for refugees.",
+          "I owe my life to a stranger’s kindness.",
+          "A childhood friend vanished; I’ll find them.",
+          "I keep a simple charm from home for luck.",
+          "My deeds made me a symbol—and symbols must endure.",
+        ],
+        flaw: [
+          "I’m not used to big-city deception.",
+          "I take insults personally.",
+          "I rush into danger to prove myself.",
+          "I’m suspicious of nobles and officials.",
+          "I hold myself to impossible standards.",
+          "I refuse help even when I need it.",
+          "I get reckless when people are threatened.",
+          "I can’t stop blaming myself for past failures.",
+        ],
+      },
+
+      "Guild Artisan": {
+        trait: [
+          "I can’t stop critiquing craftsmanship.",
+          "I take pride in doing things “the right way.”",
+          "I keep meticulous records and receipts.",
+          "I talk shop with anyone who’ll listen.",
+          "I’m patient—until someone rushes me.",
+          "I judge people by their tools.",
+          "I’m always tinkering or sketching designs.",
+          "I bargain like it’s a sacred ritual.",
+        ],
+        ideal: [
+          "Quality. Good work outlasts fame.",
+          "Wealth. Prosperity proves success.",
+          "Community. My guild is my family.",
+          "Innovation. Tradition is a foundation, not a cage.",
+          "Fair Trade. Everyone deserves honest pay.",
+          "Prestige. I want respect for my craft.",
+          "Duty. I uphold guild law.",
+          "Freedom. No master owns my hands.",
+        ],
+        bond: [
+          "I would do anything for my guildhall.",
+          "I have a masterpiece to finish—no matter what.",
+          "A rival guild wronged me.",
+          "My tools were gifted by my mentor.",
+          "I owe a debt to a customer I failed.",
+          "I protect a secret technique worth killing for.",
+          "I’m hunting rare materials for a commission.",
+          "I carry my maker’s mark with pride.",
+        ],
+        flaw: [
+          "I’m arrogant about my work.",
+          "I’m stingy with money.",
+          "I’m inflexible when plans change.",
+          "I can’t resist fixing broken things… even mid-danger.",
+          "I obsess over tiny details.",
+          "I look down on “unskilled” labor.",
+          "I’m terrified of failure and hide it with anger.",
+          "I overpromise and underrest.",
+        ],
+      },
+
+      "Hermit": {
+        trait: [
+          "I’m more comfortable alone than in crowds.",
+          "I speak in riddles when nervous.",
+          "I’m intensely observant.",
+          "I keep strange routines that calm me.",
+          "I’m gentle but distant.",
+          "I prefer listening to talking.",
+          "I’m fascinated by small living things.",
+          "I’m slow to trust and hard to shake.",
+        ],
+        ideal: [
+          "Self-Knowledge. Truth is found within.",
+          "Balance. Extremes invite disaster.",
+          "Discovery. Secrets exist to be uncovered.",
+          "Simplicity. Less is more.",
+          "Freedom. Society’s rules are distractions.",
+          "Nature. The wild has its own wisdom.",
+          "Redemption. Isolation can heal old wounds.",
+          "Purpose. My solitude served a greater plan.",
+        ],
+        bond: [
+          "I left something behind that still calls to me.",
+          "I protect a hidden place from intrusion.",
+          "I carry a revelation that could change everything.",
+          "My mentor taught me one final lesson—unfinished.",
+          "I’m searching for the meaning of a vision.",
+          "Someone waits for me to return… and I fear it.",
+          "I keep a journal no one must read.",
+          "I owe my survival to the wilderness itself.",
+        ],
+        flaw: [
+          "I’m socially awkward and easily misunderstood.",
+          "I distrust institutions on instinct.",
+          "I panic in crowds.",
+          "I can become obsessed with a mystery.",
+          "I’m blunt to the point of cruelty.",
+          "I assume others are hiding something.",
+          "I forget practical needs—food, sleep, time.",
+          "I cling to solitude even when I need help.",
+        ],
+      },
+
+      "Noble": {
+        trait: [
+          "I speak as if the room belongs to me.",
+          "I’m gracious—even to my enemies.",
+          "I remember names, titles, and debts.",
+          "I keep my posture perfect.",
+          "I treat etiquette like armor.",
+          "I’m comfortable giving orders.",
+          "I’m fascinated by “common” life.",
+          "I never show fear in public.",
+        ],
+        ideal: [
+          "Responsibility. Nobility demands service.",
+          "Power. Authority must be respected.",
+          "Tradition. The old bloodlines matter.",
+          "Generosity. Wealth should uplift others.",
+          "Independence. I refuse to be used.",
+          "Justice. The strong should protect the weak.",
+          "Ambition. I will rise higher.",
+          "Honor. My name must remain spotless.",
+        ],
+        bond: [
+          "My family’s reputation is everything.",
+          "I’m promised in marriage for politics—and I hate it.",
+          "I protect a secret that could ruin my house.",
+          "I owe my life to a commoner.",
+          "I seek revenge on the family that betrayed us.",
+          "I carry a signet that proves my claim.",
+          "I’m responsible for the safety of my retainers.",
+          "I want to restore my family’s fallen fortune.",
+        ],
+        flaw: [
+          "I’m condescending without meaning to be.",
+          "I’m stubborn when challenged.",
+          "I assume my way is best.",
+          "I can’t admit I’m wrong.",
+          "I’m terrified of scandal.",
+          "I underestimate “common” cunning.",
+          "I hoard grudges like heirlooms.",
+          "I’m spoiled and it shows under stress.",
+        ],
+      },
+
+      "Outlander": {
+        trait: [
+          "I sleep lightly and wake at the slightest sound.",
+          "I’m more comfortable under open sky than a roof.",
+          "I collect trophies from hunts and journeys.",
+          "I move quietly without trying.",
+          "I keep my gear packed and ready.",
+          "I’m blunt and practical.",
+          "I trust animals more than people at first.",
+          "I always know which way is north… somehow.",
+        ],
+        ideal: [
+          "Change. Adapt or die.",
+          "Nature. The wild is sacred.",
+          "Survival. Only the strong endure.",
+          "Freedom. No walls can hold me.",
+          "Glory. Great deeds earn great songs.",
+          "Community. My tribe comes first.",
+          "Honor. I keep my word.",
+          "Discovery. Beyond the next ridge is truth.",
+        ],
+        bond: [
+          "I’m protecting my homeland from a coming threat.",
+          "A companion died on the trail; I carry their memory.",
+          "I seek a beast that scarred me long ago.",
+          "I’m hunting a place from my dreams.",
+          "I owe my life to a guide who vanished.",
+          "I carry a token from my tribe’s chieftain.",
+          "I must repay a debt to a spirit of the wild.",
+          "I promised to return with proof of my journey.",
+        ],
+        flaw: [
+          "I’m impatient with cities and rules.",
+          "I overreact to confinement.",
+          "I solve problems with force before words.",
+          "I take risks for the thrill of it.",
+          "I’m suspicious of magic and scholars.",
+          "I can’t sit still when danger might be near.",
+          "I hoard supplies even when others need them.",
+          "I’m quick to anger when mocked.",
+        ],
+      },
+
+      "Sage": {
+        trait: [
+          "I lose track of time when reading or researching.",
+          "I speak precisely and correct people often.",
+          "I’m endlessly curious about everything.",
+          "I keep notes on absolutely everything.",
+          "I ask questions at the worst times.",
+          "I’m absent-minded but observant.",
+          "I collect obscure trivia like treasure.",
+          "I treat libraries like holy ground.",
+        ],
+        ideal: [
+          "Knowledge. Truth is worth any cost.",
+          "Logic. Emotions mislead.",
+          "Freedom. Ideas should be shared.",
+          "Power. Knowledge is leverage.",
+          "Beauty. Understanding is wonder.",
+          "Humility. The more I learn, the less I know.",
+          "Tradition. Ancient texts hold the keys.",
+          "Progress. New discovery drives the world forward.",
+        ],
+        bond: [
+          "I’m searching for a lost book no one believes exists.",
+          "My teacher disappeared—my research is the clue.",
+          "I guard a dangerous secret.",
+          "I owe a debt to a patron of my studies.",
+          "I carry a map of ruins I must explore.",
+          "I swore to prove a theory at any cost.",
+          "A rival scholar stole my work.",
+          "I keep a letter from someone who believed in me first.",
+        ],
+        flaw: [
+          "I’m condescending when I’m right.",
+          "I ignore danger when I’m focused.",
+          "I hoard information instead of sharing it.",
+          "I talk over people without noticing.",
+          "I’m reckless in pursuit of answers.",
+          "I distrust “uneducated” opinions.",
+          "I freeze when things stop making sense.",
+          "I’m terrible at reading emotions.",
+        ],
+      },
+
+      "Sailor": {
+        trait: [
+          "I’m happiest with a horizon in view.",
+          "I swear like a deckhand and laugh like one too.",
+          "I’m superstitious about small signs.",
+          "I keep my balance no matter what.",
+          "I take orders well… until I don’t.",
+          "I’m quick to make friends over shared hardship.",
+          "I can’t resist a good sea story.",
+          "I like my problems direct and solvable.",
+        ],
+        ideal: [
+          "Freedom. The sea answers to no one.",
+          "Respect. Every crew member matters.",
+          "Adventure. Safe harbors are boring.",
+          "Greed. A good haul is a good life.",
+          "Loyalty. I never abandon my crew.",
+          "Courage. Storms don’t scare me.",
+          "Tradition. Old sailor ways exist for a reason.",
+          "Opportunity. Every port offers a new start.",
+        ],
+        bond: [
+          "I owe my life to a captain I trust.",
+          "I’m hunting the ship that wronged me.",
+          "I keep a charm that saved me from drowning.",
+          "I’m searching for a lost crew mate.",
+          "I promised to deliver a message across the sea.",
+          "I have a map to treasure I can’t claim alone.",
+          "My ship is my home, wherever it is.",
+          "I’m paying off a debt to a ruthless harbor master.",
+        ],
+        flaw: [
+          "I drink too much when on land.",
+          "I take unnecessary risks to feel alive.",
+          "I’m slow to trust authority.",
+          "I pick fights over insults.",
+          "I’m superstitious to a fault.",
+          "I refuse to admit I’m seasick (even when I am).",
+          "I can’t resist gambling.",
+          "I get restless and sabotage stability.",
+        ],
+      },
+
+      "Soldier": {
+        trait: [
+          "I keep my kit tidy and my mind sharper.",
+          "I follow routines because they work.",
+          "I scan for threats automatically.",
+          "I’m blunt and direct.",
+          "I carry myself like I’m still on parade.",
+          "I believe in teamwork above ego.",
+          "I train when others rest.",
+          "I’m calm when chaos hits.",
+        ],
+        ideal: [
+          "Duty. Orders exist for a reason.",
+          "Honor. I do what’s right, even if it hurts.",
+          "Nation. My people come first.",
+          "Glory. Deeds deserve recognition.",
+          "Responsibility. Protect those who can’t protect themselves.",
+          "Survival. Live now; mourn later.",
+          "Discipline. Control wins battles.",
+          "Comradeship. No one is left behind.",
+        ],
+        bond: [
+          "I’d die for the soldiers I served with.",
+          "I carry a token from a fallen friend.",
+          "I’m seeking the officer who betrayed us.",
+          "I’m protecting a secret about the war.",
+          "I owe my life to a medic I’ll never forget.",
+          "I promised to return home when it was over.",
+          "I’m haunted by a battle I can’t forget.",
+          "My unit’s banner must not be dishonored.",
+        ],
+        flaw: [
+          "I solve problems like they’re battles.",
+          "I’m too rigid to adapt quickly.",
+          "I’m haunted by what I’ve done.",
+          "I distrust civilians and nobles.",
+          "I can’t relax—ever.",
+          "I lash out when startled.",
+          "I carry guilt like armor.",
+          "I’m reckless when protecting others.",
+        ],
+      },
+
+      "Urchin": {
+        trait: [
+          "I can slip through crowds without being noticed.",
+          "I hoard food and small valuables.",
+          "I don’t trust adults easily.",
+          "I’m fiercely protective of my friends.",
+          "I can make anything into a tool.",
+          "I’m quick with a joke to defuse tension.",
+          "I’ve got street instincts for trouble.",
+          "I sleep with one eye open.",
+        ],
+        ideal: [
+          "Freedom. No one will ever own me.",
+          "Survival. Tomorrow matters more than pride.",
+          "Community. Street family is still family.",
+          "Revenge. The world hurt me first.",
+          "Ambition. I’ll rise higher than they expect.",
+          "Kindness. I help kids like I was.",
+          "Justice. The powerful should fear the poor.",
+          "Opportunity. Every day is a chance to change everything.",
+        ],
+        bond: [
+          "I owe my life to someone from the streets.",
+          "I protect a younger kid like a sibling.",
+          "I’m hunting the person who destroyed my home.",
+          "I have a secret stash only I can find.",
+          "A gang wants me back—or dead.",
+          "I promised to escape with my best friend.",
+          "I carry a keepsake from my parents.",
+          "I’m paying off a debt to a cruel “protector.”",
+        ],
+        flaw: [
+          "I steal when nervous.",
+          "I assume everyone will betray me.",
+          "I panic when I feel trapped.",
+          "I hold grudges forever.",
+          "I take insults as threats.",
+          "I’m reckless when someone I love is threatened.",
+          "I lie to protect myself.",
+          "I can’t accept kindness without suspicion.",
+        ],
+      },
+    },
+  };
+
+  const CASTING_ABILITY = {
+    Bard: "CHA",
+    Cleric: "WIS",
+    Druid: "WIS",
+    Paladin: "CHA",
+    Ranger: "WIS",
+    Sorcerer: "CHA",
+    Warlock: "CHA",
+    Wizard: "INT",
+  };
+
+  // ✅ Weapons now include a description
+  const WEAPONS = [
+    { name: "Dagger", type: "Simple", dmg: "1d4 piercing", props: "Finesse, light, thrown (20/60)", desc: "A small blade meant for close work—easy to hide, quick to draw, and deadly in skilled hands." },
+    { name: "Shortsword", type: "Martial", dmg: "1d6 piercing", props: "Finesse, light", desc: "A balanced blade favored by duelists and rogues—fast, precise, and reliable." },
+    { name: "Longsword", type: "Martial", dmg: "1d8 slashing", props: "Versatile (1d10)", desc: "A knight’s staple—effective one-handed or two-handed, built for battlefield versatility." },
+    { name: "Greatsword", type: "Martial", dmg: "2d6 slashing", props: "Heavy, two-handed", desc: "A massive two-handed blade that trades finesse for overwhelming cleaving force." },
+    { name: "Rapier", type: "Martial", dmg: "1d8 piercing", props: "Finesse", desc: "A slender dueling sword designed for thrusts and footwork—ideal for agile combatants." },
+    { name: "Shortbow", type: "Simple", dmg: "1d6 piercing", props: "Ammunition (80/320), two-handed", desc: "A compact bow for skirmishing and hunting—quick to nock, easy to carry." },
+    { name: "Longbow", type: "Martial", dmg: "1d8 piercing", props: "Ammunition (150/600), heavy, two-handed", desc: "A tall war bow with long reach—requires strength and training to use effectively." },
+    { name: "Mace", type: "Simple", dmg: "1d6 bludgeoning", props: "—", desc: "A weighted head on a haft—built to crush through armor and bone alike." },
+    { name: "Warhammer", type: "Martial", dmg: "1d8 bludgeoning", props: "Versatile (1d10)", desc: "A compact hammer with brutal impact—excellent against armored foes." },
+    { name: "Spear", type: "Simple", dmg: "1d6 piercing", props: "Thrown (20/60), versatile (1d8)", desc: "A timeless weapon—keeps danger at a distance and doubles as a hunting tool." },
+  ];
+
+  // ✅ Spells: 10 per caster class per level (0–9), each with a description.
+  // Note: These are example spell lists (not SRD-complete). Expand any time.
+  const SPELLS_BY_CLASS = {
+    Wizard: {
+      0: [
+        { name:"Fire Bolt", school:"Evocation", desc:"Hurl a mote of fire at a creature within range, dealing fire damage on a hit." },
+        { name:"Ray of Frost", school:"Evocation", desc:"A chilling beam deals cold damage and slows the target’s movement briefly." },
+        { name:"Mage Hand", school:"Conjuration", desc:"A spectral hand appears and can manipulate objects at a distance." },
+        { name:"Prestidigitation", school:"Transmutation", desc:"Minor magical tricks—cleaning, flavoring, sparks, small illusions, and more." },
+        { name:"Minor Illusion", school:"Illusion", desc:"Create a small sound or image to distract, deceive, or entertain." },
+        { name:"Shocking Grasp", school:"Evocation", desc:"A lightning touch that can prevent the target from taking reactions." },
+        { name:"Light", school:"Evocation", desc:"Cause an object to shed bright light, dispelling mundane darkness nearby." },
+        { name:"Message", school:"Transmutation", desc:"Whisper a message that only the target can hear, and they can whisper back." },
+        { name:"Acid Splash", school:"Conjuration", desc:"Splash acid on one or two nearby creatures, dealing acid damage on a failed save." },
+        { name:"True Strike", school:"Divination", desc:"Briefly study a target, gaining an edge on your next attack against it." },
+      ],
+      1: [
+        { name:"Magic Missile", school:"Evocation", desc:"Create darts of force that automatically hit and deal force damage." },
+        { name:"Shield", school:"Abjuration", desc:"A momentary barrier boosts AC and blocks magic missile until your next turn." },
+        { name:"Mage Armor", school:"Abjuration", desc:"Protect an unarmored creature with a magical force that raises AC." },
+        { name:"Burning Hands", school:"Evocation", desc:"A cone of flames erupts from your hands, scorching creatures in the area." },
+        { name:"Detect Magic", school:"Divination", desc:"Sense the presence of magic and learn the school of magical auras." },
+        { name:"Identify", school:"Divination", desc:"Learn properties of a magic item or spell affecting a creature/object." },
+        { name:"Sleep", school:"Enchantment", desc:"A wave of drowsiness puts creatures with the lowest HP to sleep first." },
+        { name:"Feather Fall", school:"Transmutation", desc:"Slow falling creatures, preventing fall damage for the duration." },
+        { name:"Chromatic Orb", school:"Evocation", desc:"A sphere of energy strikes a target, dealing chosen elemental damage on a hit." },
+        { name:"Fog Cloud", school:"Conjuration", desc:"Create a sphere of fog that heavily obscures sight." },
+      ],
+      2: [
+        { name:"Misty Step", school:"Conjuration", desc:"Teleport a short distance to an unoccupied space you can see." },
+        { name:"Mirror Image", school:"Illusion", desc:"Create illusory duplicates that make you harder to hit." },
+        { name:"Invisibility", school:"Illusion", desc:"Turn a creature invisible until it attacks, casts, or the spell ends." },
+        { name:"Hold Person", school:"Enchantment", desc:"Paralyze a humanoid on a failed save, locking them in place." },
+        { name:"Scorching Ray", school:"Evocation", desc:"Fire multiple rays that can strike one or more targets for fire damage." },
+        { name:"Levitate", school:"Transmutation", desc:"Lift a creature or object into the air; it can be moved by pushing/pulling." },
+        { name:"Web", school:"Conjuration", desc:"Fill an area with sticky webs that restrain creatures and slow movement." },
+        { name:"Knock", school:"Transmutation", desc:"Magically open locked doors, chests, and other secured objects." },
+        { name:"Detect Thoughts", school:"Divination", desc:"Read surface thoughts and probe deeper with focus and effort." },
+        { name:"Darkvision", school:"Transmutation", desc:"Grant darkvision to a creature that lacks it." },
+      ],
+      3: [
+        { name:"Fireball", school:"Evocation", desc:"A roaring explosion of flame erupts at a point, dealing heavy fire damage." },
+        { name:"Counterspell", school:"Abjuration", desc:"Interrupt a creature casting a spell, potentially negating it entirely." },
+        { name:"Fly", school:"Transmutation", desc:"Grant a creature a flying speed for the duration." },
+        { name:"Haste", school:"Transmutation", desc:"Supercharge a creature’s speed and actions for a short time." },
+        { name:"Dispel Magic", school:"Abjuration", desc:"End spells on creatures/objects or in an area." },
+        { name:"Lightning Bolt", school:"Evocation", desc:"A line of lightning blasts through targets, dealing lightning damage." },
+        { name:"Hypnotic Pattern", school:"Illusion", desc:"A swirling pattern charms and incapacitates creatures who fail a save." },
+        { name:"Tiny Hut", school:"Evocation", desc:"A dome shelter protects occupants from weather and many external effects." },
+        { name:"Fear", school:"Illusion", desc:"Project terror in a cone, forcing creatures to flee and drop items." },
+        { name:"Water Breathing", school:"Transmutation", desc:"Grant water-breathing to multiple creatures for extended travel." },
+      ],
+      4: [
+        { name:"Greater Invisibility", school:"Illusion", desc:"A creature remains invisible even while attacking or casting." },
+        { name:"Dimension Door", school:"Conjuration", desc:"Teleport yourself (and possibly an ally) a long distance instantly." },
+        { name:"Stoneskin", school:"Abjuration", desc:"Grant resistance to nonmagical bludgeoning, piercing, and slashing." },
+        { name:"Polymorph", school:"Transmutation", desc:"Transform a creature into a beast form with new stats." },
+        { name:"Ice Storm", school:"Evocation", desc:"Hail and freezing rain batter an area, dealing damage and creating difficult terrain." },
+        { name:"Wall of Fire", school:"Evocation", desc:"Create a blazing barrier that damages creatures near or passing through it." },
+        { name:"Banishment", school:"Abjuration", desc:"Send a creature temporarily to a harmless demiplane or its home plane." },
+        { name:"Arcane Eye", school:"Divination", desc:"Create an invisible eye you can move to scout at a distance." },
+        { name:"Confusion", school:"Enchantment", desc:"Disrupt minds so creatures act unpredictably on their turns." },
+        { name:"Fabricate", school:"Transmutation", desc:"Convert raw materials into finished goods, limited by skill and materials." },
+      ],
+      5: [
+        { name:"Teleportation Circle", school:"Conjuration", desc:"Create a portal to a known teleportation circle destination." },
+        { name:"Wall of Force", school:"Evocation", desc:"An invisible barrier that blocks physical passage and many spells." },
+        { name:"Cone of Cold", school:"Evocation", desc:"A blast of freezing air deals heavy cold damage in a cone." },
+        { name:"Hold Monster", school:"Enchantment", desc:"Paralyze a creature (not just humanoids) on a failed save." },
+        { name:"Cloudkill", school:"Conjuration", desc:"A toxic cloud moves and poisons creatures in an area." },
+        { name:"Animate Objects", school:"Transmutation", desc:"Bring objects to life to fight for you." },
+        { name:"Dominate Person", school:"Enchantment", desc:"Seize control of a humanoid’s actions with mental domination." },
+        { name:"Scrying", school:"Divination", desc:"Spy on a creature at a distance via a magical sensor." },
+        { name:"Bigby’s Hand", school:"Evocation", desc:"A huge spectral hand grapples, strikes, or shields as you command." },
+        { name:"Passwall", school:"Transmutation", desc:"Create a temporary passage through a wall or barrier." },
+      ],
+      6: [
+        { name:"Disintegrate", school:"Transmutation", desc:"A ray reduces a creature or object to dust if it drops them to 0 HP." },
+        { name:"Chain Lightning", school:"Evocation", desc:"Lightning arcs to multiple targets, dealing strong damage." },
+        { name:"Globe of Invulnerability", school:"Abjuration", desc:"A barrier blocks lower-level spells from affecting creatures inside." },
+        { name:"True Seeing", school:"Divination", desc:"See things as they truly are—illusions and invisibility revealed." },
+        { name:"Contingency", school:"Evocation", desc:"Prepare a spell to trigger automatically under set conditions." },
+        { name:"Mass Suggestion", school:"Enchantment", desc:"Influence the actions of multiple creatures with a reasonable command." },
+        { name:"Flesh to Stone", school:"Transmutation", desc:"Slowly petrify a creature until it becomes stone." },
+        { name:"Sunbeam", school:"Evocation", desc:"A beam of radiant light damages and can blind targets." },
+        { name:"Programmed Illusion", school:"Illusion", desc:"Create an illusion that activates under specific conditions." },
+        { name:"Move Earth", school:"Transmutation", desc:"Reshape terrain—dig trenches, raise hills, and alter earth structures." },
+      ],
+      7: [
+        { name:"Teleport", school:"Conjuration", desc:"Instantly travel to a destination with varying accuracy depending on familiarity." },
+        { name:"Forcecage", school:"Evocation", desc:"Trap creatures in a cage of force—no bars to bend, no doors to pick." },
+        { name:"Plane Shift", school:"Conjuration", desc:"Transport to another plane of existence (or banish a creature there)." },
+        { name:"Simulacrum", school:"Illusion", desc:"Create a partial duplicate of a creature that obeys your commands." },
+        { name:"Reverse Gravity", school:"Transmutation", desc:"Flip gravity in an area, sending creatures and objects upward." },
+        { name:"Finger of Death", school:"Necromancy", desc:"A chilling beam deals necrotic damage; slain humanoids may rise as undead." },
+        { name:"Prismatic Spray", school:"Evocation", desc:"A burst of multicolored rays causes varied devastating effects." },
+        { name:"Etherealness", school:"Transmutation", desc:"Step into the Ethereal Plane, moving through the world unseen." },
+        { name:"Mirage Arcane", school:"Illusion", desc:"Transform the appearance of terrain on a vast scale with convincing realism." },
+        { name:"Sequester", school:"Transmutation", desc:"Hide a creature or object from detection, often placing it in stasis." },
+      ],
+      8: [
+        { name:"Mind Blank", school:"Abjuration", desc:"Shield a mind from psychic influence, detection, and mental damage." },
+        { name:"Maze", school:"Conjuration", desc:"Banish a creature to a labyrinth demiplane until it escapes." },
+        { name:"Demiplane", school:"Conjuration", desc:"Create a doorway to a small personal pocket dimension." },
+        { name:"Power Word Stun", school:"Enchantment", desc:"Stun a creature instantly if it has low enough HP." },
+        { name:"Sunburst", school:"Evocation", desc:"A radiant explosion blinds and harms creatures in a large area." },
+        { name:"Antimagic Field", school:"Abjuration", desc:"Suppress magic in a sphere around you—spells and items go inert." },
+        { name:"Incendiary Cloud", school:"Conjuration", desc:"A roiling cloud of flame burns creatures each round." },
+        { name:"Dominate Monster", school:"Enchantment", desc:"Take control of a creature’s actions, even monstrous ones." },
+        { name:"Feeblemind", school:"Enchantment", desc:"Cripple a creature’s intellect and spellcasting ability." },
+        { name:"Control Weather", school:"Transmutation", desc:"Alter weather patterns across miles, changing storms, wind, and precipitation." },
+      ],
+      9: [
+        { name:"Wish", school:"Conjuration", desc:"Bend reality with the most powerful spell—duplicating spells or greater effects at risk." },
+        { name:"Time Stop", school:"Transmutation", desc:"Briefly stop time for everyone but you, taking multiple turns." },
+        { name:"Meteor Swarm", school:"Evocation", desc:"Call down massive meteors for catastrophic fire and bludgeoning damage." },
+        { name:"Power Word Kill", school:"Enchantment", desc:"Instantly slay a creature with low enough HP—no save." },
+        { name:"Gate", school:"Conjuration", desc:"Open a portal to another plane; can also call a specific creature." },
+        { name:"True Polymorph", school:"Transmutation", desc:"Transform a creature or object into something else—potentially permanent." },
+        { name:"Prismatic Wall", school:"Abjuration", desc:"A multi-layered barrier with deadly effects for those passing through." },
+        { name:"Shapechange", school:"Transmutation", desc:"Assume forms of many creatures, gaining their abilities." },
+        { name:"Foresight", school:"Divination", desc:"Grant a creature supernatural luck—advantage and immunity to surprise." },
+        { name:"Mass Heal", school:"Evocation", desc:"A surge of restorative energy heals massive amounts to many creatures." },
+      ],
+    },
+
+    Cleric: {
+      0: [
+        { name:"Guidance", school:"Divination", desc:"Touch a creature to grant a brief bonus to an ability check." },
+        { name:"Sacred Flame", school:"Evocation", desc:"Radiant flame descends on a target; cover offers less protection." },
+        { name:"Thaumaturgy", school:"Transmutation", desc:"Minor wonders: booming voice, flickering flames, trembling ground, and more." },
+        { name:"Light", school:"Evocation", desc:"An object shines with bright light for the duration." },
+        { name:"Spare the Dying", school:"Necromancy", desc:"Stabilize a dying creature instantly." },
+        { name:"Resistance", school:"Abjuration", desc:"Touch a creature to grant a brief bonus to a saving throw." },
+        { name:"Toll the Dead", school:"Necromancy", desc:"A bell of doom harms a target more if it’s already wounded." },
+        { name:"Word of Radiance", school:"Evocation", desc:"Radiant word bursts around you, damaging nearby foes." },
+        { name:"Mending", school:"Transmutation", desc:"Repair a break or tear in an object." },
+        { name:"Detect Magic", school:"Divination", desc:"Sense magical auras and their schools." },
+      ],
+      // For brevity: reuse Wizard’s 1–9 patterns but themed; still 10 each.
+      // You can expand or replace with your preferred lists anytime.
+      1: [
+        { name:"Cure Wounds", school:"Evocation", desc:"Restore hit points to a touched creature." },
+        { name:"Healing Word", school:"Evocation", desc:"Heal a creature at range with a quick prayer." },
+        { name:"Bless", school:"Enchantment", desc:"Bolster allies with divine favor, improving attacks and saves." },
+        { name:"Shield of Faith", school:"Abjuration", desc:"A shimmering field grants a creature bonus AC." },
+        { name:"Guiding Bolt", school:"Evocation", desc:"Radiant bolt deals damage and grants advantage to the next attack on the target." },
+        { name:"Sanctuary", school:"Abjuration", desc:"Ward a creature; attackers must pass a save or choose a new target." },
+        { name:"Detect Evil and Good", school:"Divination", desc:"Sense certain creature types and consecrated or desecrated areas." },
+        { name:"Command", school:"Enchantment", desc:"Issue a one-word divine command that compels action on a failed save." },
+        { name:"Protection from Evil and Good", school:"Abjuration", desc:"Guard against aberrations, celestials, elementals, fey, fiends, and undead." },
+        { name:"Create or Destroy Water", school:"Transmutation", desc:"Conjure rain or evaporate water in an area." },
+      ],
+      2: [
+        { name:"Spiritual Weapon", school:"Evocation", desc:"Create a floating weapon that strikes foes as a bonus action." },
+        { name:"Lesser Restoration", school:"Abjuration", desc:"Cure a condition like blindness, deafness, paralysis, or poison." },
+        { name:"Hold Person", school:"Enchantment", desc:"Paralyze a humanoid on a failed save." },
+        { name:"Prayer of Healing", school:"Evocation", desc:"Heal multiple creatures during a short ritual-like cast." },
+        { name:"Silence", school:"Illusion", desc:"Create a zone where sound cannot be created or pass through." },
+        { name:"Aid", school:"Abjuration", desc:"Increase max HP and current HP for multiple allies." },
+        { name:"Zone of Truth", school:"Enchantment", desc:"Creatures can’t knowingly lie within the area (with save)." },
+        { name:"Gentle Repose", school:"Necromancy", desc:"Preserve a corpse and delay undead transformation." },
+        { name:"Warding Bond", school:"Abjuration", desc:"Link to an ally, sharing damage and granting protection." },
+        { name:"Augury", school:"Divination", desc:"Receive an omen about a specific course of action." },
+      ],
+      3: [
+        { name:"Revivify", school:"Necromancy", desc:"Return a creature to life if it died recently." },
+        { name:"Spirit Guardians", school:"Conjuration", desc:"Spectral guardians swirl around you, harming foes and slowing them." },
+        { name:"Dispel Magic", school:"Abjuration", desc:"End spells on creatures/objects or in an area." },
+        { name:"Mass Healing Word", school:"Evocation", desc:"Heal multiple allies at range with a quick prayer." },
+        { name:"Bestow Curse", school:"Necromancy", desc:"Lay a debilitating curse with multiple effect options." },
+        { name:"Daylight", school:"Evocation", desc:"Create bright light that counters many forms of magical darkness." },
+        { name:"Remove Curse", school:"Abjuration", desc:"End curses affecting a creature or object." },
+        { name:"Beacon of Hope", school:"Abjuration", desc:"Maximize healing and grant advantage on wisdom/death saves." },
+        { name:"Create Food and Water", school:"Conjuration", desc:"Conjure nourishment sufficient for multiple creatures." },
+        { name:"Speak with Dead", school:"Necromancy", desc:"Question a corpse that still has a mouth." },
+      ],
+      4: [
+        { name:"Banishment", school:"Abjuration", desc:"Send a creature to a harmless demiplane or its home plane." },
+        { name:"Death Ward", school:"Abjuration", desc:"Prevent a creature from dropping to 0 HP once." },
+        { name:"Freedom of Movement", school:"Abjuration", desc:"Ignore difficult movement and many restraints." },
+        { name:"Divination", school:"Divination", desc:"Ask a deity for guidance about a goal, event, or activity." },
+        { name:"Guardian of Faith", school:"Conjuration", desc:"Summon a guardian spirit that damages enemies who approach." },
+        { name:"Control Water", school:"Transmutation", desc:"Move, part, or redirect water in a large area." },
+        { name:"Locate Creature", school:"Divination", desc:"Sense direction to a known creature type or specific creature." },
+        { name:"Stone Shape", school:"Transmutation", desc:"Shape stone into forms, openings, or tools." },
+        { name:"Holy Weapon", school:"Evocation", desc:"Imbue a weapon with radiant power (bonus damage, burst option)." },
+        { name:"Commune", school:"Divination", desc:"Ask your deity questions and receive truthful answers." },
+      ],
+      5: [
+        { name:"Mass Cure Wounds", school:"Evocation", desc:"Heal multiple creatures in an area." },
+        { name:"Raise Dead", school:"Necromancy", desc:"Bring a dead creature back to life with some limitations." },
+        { name:"Greater Restoration", school:"Abjuration", desc:"Undo debilitating effects like petrification, curses, or exhaustion." },
+        { name:"Flame Strike", school:"Evocation", desc:"A column of fire and radiant power blasts a point." },
+        { name:"Dispel Evil and Good", school:"Abjuration", desc:"Break possession and banish certain creature types." },
+        { name:"Scrying", school:"Divination", desc:"Spy on a creature from afar." },
+        { name:"Insect Plague", school:"Conjuration", desc:"A cloud of stinging insects harms and obscures." },
+        { name:"Hallow", school:"Evocation", desc:"Consecrate an area with powerful long-term effects." },
+        { name:"Planar Binding", school:"Abjuration", desc:"Bind a celestial/elemental/fey/fiend to your service." },
+        { name:"Geas", school:"Enchantment", desc:"Compel a creature to follow a directive for a long duration." },
+      ],
+      6: [
+        { name:"Heal", school:"Evocation", desc:"Restore a massive amount of hit points and end certain conditions." },
+        { name:"Blade Barrier", school:"Evocation", desc:"A wall of spinning blades damages and blocks movement." },
+        { name:"Harm", school:"Necromancy", desc:"Wither a creature with necrotic energy, reducing its vitality." },
+        { name:"Heroes' Feast", school:"Conjuration", desc:"A feast grants immunities, HP increases, and advantage vs fear/poison." },
+        { name:"Word of Recall", school:"Conjuration", desc:"Teleport to a sanctified location you designate." },
+        { name:"True Seeing", school:"Divination", desc:"See through illusions and invisibility." },
+        { name:"Forbiddance", school:"Abjuration", desc:"Protect a large area from planar travel and certain creature types." },
+        { name:"Planar Ally", school:"Conjuration", desc:"Request aid from an extraplanar entity in exchange for payment." },
+        { name:"Create Undead", school:"Necromancy", desc:"Animate stronger undead under your control." },
+        { name:"Find the Path", school:"Divination", desc:"Magically learn the shortest route to a known location." },
+      ],
+      7: [
+        { name:"Resurrection", school:"Necromancy", desc:"Return a dead creature to life, restoring missing body parts." },
+        { name:"Plane Shift", school:"Conjuration", desc:"Travel to another plane (or banish a creature there)." },
+        { name:"Regenerate", school:"Transmutation", desc:"Heal and regrow lost limbs over time." },
+        { name:"Divine Word", school:"Evocation", desc:"A word of divine power harms and banishes creatures of certain types." },
+        { name:"Fire Storm", school:"Evocation", desc:"Shape roaring flames across a large area." },
+        { name:"Conjure Celestial", school:"Conjuration", desc:"Summon a celestial ally to aid you." },
+        { name:"Etherealness", school:"Transmutation", desc:"Step into the Ethereal Plane." },
+        { name:"Temple of the Gods", school:"Conjuration", desc:"Create a divine temple with protective properties." },
+        { name:"Symbol", school:"Abjuration", desc:"Inscribe a magical glyph with potent triggered effects." },
+        { name:"Miracle (Prayer)", school:"Divination", desc:"A powerful petition—your DM decides the outcome and cost." },
+      ],
+      8: [
+        { name:"Holy Aura", school:"Abjuration", desc:"Radiant protection grants advantage, resistance, and can blind attackers." },
+        { name:"Earthquake", school:"Evocation", desc:"Shake the ground violently, causing fissures and collapse." },
+        { name:"Antimagic Field", school:"Abjuration", desc:"Suppress magic in a sphere around you." },
+        { name:"Control Weather", school:"Transmutation", desc:"Change weather patterns across miles." },
+        { name:"Sunburst", school:"Evocation", desc:"Radiant explosion blinds and harms many targets." },
+        { name:"Power Word Stun", school:"Enchantment", desc:"Stun a creature instantly if it has low enough HP." },
+        { name:"Dominate Monster", school:"Enchantment", desc:"Take control of a creature’s actions." },
+        { name:"Mind Blank", school:"Abjuration", desc:"Protect a creature from psychic intrusion and mental harm." },
+        { name:"Tsunami", school:"Conjuration", desc:"Create a towering wave that sweeps through an area." },
+        { name:"Astral Projection", school:"Necromancy", desc:"Project yourself into the Astral Plane." },
+      ],
+      9: [
+        { name:"Mass Heal", school:"Evocation", desc:"Heal enormous amounts to many creatures at once." },
+        { name:"True Resurrection", school:"Necromancy", desc:"Restore a creature to life even after long death and without the body." },
+        { name:"Gate", school:"Conjuration", desc:"Open a portal to another plane; can summon specific beings." },
+        { name:"Wish", school:"Conjuration", desc:"Bend reality—great power at potential risk." },
+        { name:"Power Word Heal", school:"Evocation", desc:"Massively heal a creature instantly and end certain conditions." },
+        { name:"Storm of Vengeance", school:"Conjuration", desc:"A catastrophic storm grows in intensity across rounds." },
+        { name:"Foresight", school:"Divination", desc:"Grant powerful luck—advantage and immunity to surprise." },
+        { name:"Mass Suggestion", school:"Enchantment", desc:"Influence many creatures with a reasonable directive." },
+        { name:"Imprisonment", school:"Abjuration", desc:"Bind a creature in a magical prison with multiple forms." },
+        { name:"Miracle (Greater)", school:"Divination", desc:"A supreme prayer—DM adjudicates the divine response." },
+      ],
+    },
+
+    // Copy the Wizard list shape for Bard/Druid/Sorcerer/Warlock as needed.
+    // For now: use Wizard lists (still 10 per level) but you can replace with class-accurate lists later.
+    Bard: null,
+    Druid: null,
+    Sorcerer: null,
+    Warlock: null,
+    Ranger: null,
+    Paladin: null,
+  };
+
+  // Fill missing caster classes with Wizard-like lists to guarantee 10 per level now.
+  ["Bard","Druid","Sorcerer","Warlock","Ranger","Paladin"].forEach((c) => {
+    if (!SPELLS_BY_CLASS[c]) SPELLS_BY_CLASS[c] = {};
+    if (SPELLS_BY_CLASS[c] === null) SPELLS_BY_CLASS[c] = {};
+    for (let lvl = 0; lvl <= 9; lvl++) {
+      if (!Array.isArray(SPELLS_BY_CLASS[c][lvl]) || SPELLS_BY_CLASS[c][lvl].length < 10) {
+        // Use Wizard list as fallback template, but keep distinct by name if possible.
+        const base = (SPELLS_BY_CLASS.Wizard && SPELLS_BY_CLASS.Wizard[lvl]) ? SPELLS_BY_CLASS.Wizard[lvl] : [];
+        SPELLS_BY_CLASS[c][lvl] = capN(base, 10).map((sp) => ({ ...sp }));
+      }
+    }
+  });
+
+  const RACE_SPEED = {
+    Human: 30, Elf: 30, "Half Elf": 30, "Half-Orc": 30, Halfling: 25, Gnome: 25,
+    Tiefling: 30, Aasimar: 30, Aarakocra: 25, Dwarf: 25, Dragonborn: 30, Tortle: 30,
+    Changeling: 30, Bugbear: 30, Autognome: 30, Centaur: 40,
+  };
+
+  const HIT_DIE = {
+    Barbarian: "d12",
+    Fighter: "d10",
+    Paladin: "d10",
+    Ranger: "d10",
+    Gunslinger: "d10",
+    "Blood Hunter": "d10",
+    Bard: "d8",
+    Cleric: "d8",
+    Druid: "d8",
+    Monk: "d8",
+    Rogue: "d8",
+    Warlock: "d8",
+    Sorcerer: "d6",
+    Wizard: "d6",
+  };
+
+  const ARMOR_OPTIONS = [
+    { name: "None / Unarmored", kind: "none", base: 10 },
+    { name: "Leather (Light)", kind: "light", base: 11 },
+    { name: "Studded Leather (Light)", kind: "light", base: 12 },
+    { name: "Hide (Medium)", kind: "medium", base: 12 },
+    { name: "Chain Shirt (Medium)", kind: "medium", base: 13 },
+    { name: "Half Plate (Medium)", kind: "medium", base: 15 },
+    { name: "Chain Mail (Heavy)", kind: "heavy", base: 16 },
+    { name: "Plate (Heavy)", kind: "heavy", base: 18 },
+    { name: "Tortle Natural Armor", kind: "tortle", base: 17 },
+  ];
+
+  const CLASS_ARMOR = {
+    Wizard: ["None / Unarmored"],
+    Sorcerer: ["None / Unarmored"],
+    Monk: ["None / Unarmored"],
+    Rogue: ["None / Unarmored", "Leather (Light)", "Studded Leather (Light)"],
+    Bard: ["None / Unarmored", "Leather (Light)", "Studded Leather (Light)"],
+    Warlock: ["None / Unarmored", "Leather (Light)", "Studded Leather (Light)"],
+    Barbarian: ["None / Unarmored", "Hide (Medium)"],
+    Druid: ["None / Unarmored", "Leather (Light)", "Hide (Medium)", "Chain Shirt (Medium)"],
+    Cleric: ["None / Unarmored", "Hide (Medium)", "Chain Shirt (Medium)", "Chain Mail (Heavy)"],
+    Ranger: ["None / Unarmored", "Leather (Light)", "Studded Leather (Light)", "Hide (Medium)", "Chain Shirt (Medium)"],
+    Fighter: ["None / Unarmored", "Leather (Light)", "Studded Leather (Light)", "Hide (Medium)", "Chain Shirt (Medium)", "Chain Mail (Heavy)", "Plate (Heavy)"],
+    Paladin: ["None / Unarmored", "Chain Shirt (Medium)", "Chain Mail (Heavy)", "Plate (Heavy)"],
+    Gunslinger: ["None / Unarmored", "Leather (Light)", "Studded Leather (Light)", "Hide (Medium)", "Chain Shirt (Medium)"],
+    "Blood Hunter": ["None / Unarmored", "Leather (Light)", "Studded Leather (Light)", "Hide (Medium)", "Chain Shirt (Medium)"],
+  };
+
+  /* =========================================================
+     SAVES + SKILLS (auto modifiers + proficiency budget)
+  ========================================================= */
+  const SAVE_DEFS = [
+    { key: "STR", name: "Strength" },
+    { key: "DEX", name: "Dexterity" },
+    { key: "CON", name: "Constitution" },
+    { key: "INT", name: "Intelligence" },
+    { key: "WIS", name: "Wisdom" },
+    { key: "CHA", name: "Charisma" },
+  ];
+
+  const SKILL_DEFS = [
+    { id: "acrobatics", name: "Acrobatics", abil: "DEX" },
+    { id: "animal", name: "Animal Handling", abil: "WIS" },
+    { id: "arcana", name: "Arcana", abil: "INT" },
+    { id: "athletics", name: "Athletics", abil: "STR" },
+    { id: "deception", name: "Deception", abil: "CHA" },
+    { id: "history", name: "History", abil: "INT" },
+    { id: "insight", name: "Insight", abil: "WIS" },
+    { id: "intimidation", name: "Intimidation", abil: "CHA" },
+    { id: "investigation", name: "Investigation", abil: "INT" },
+    { id: "medicine", name: "Medicine", abil: "WIS" },
+    { id: "nature", name: "Nature", abil: "INT" },
+    { id: "perception", name: "Perception", abil: "WIS" },
+    { id: "performance", name: "Performance", abil: "CHA" },
+    { id: "persuasion", name: "Persuasion", abil: "CHA" },
+    { id: "religion", name: "Religion", abil: "INT" },
+    { id: "sleight", name: "Sleight of Hand", abil: "DEX" },
+    { id: "stealth", name: "Stealth", abil: "DEX" },
+    { id: "survival", name: "Survival", abil: "WIS" },
+  ];
+
+  // Exact proficiency counts
+  const CLASS_SAVE_PROF_COUNT = 2; // 5e standard
+  const CLASS_SKILL_PROF_COUNT = {
+    Barbarian: 2,
+    Bard: 3,
+    Cleric: 2,
+    Druid: 2,
+    Fighter: 2,
+    Gunslinger: 2,
+    Monk: 2,
+    Paladin: 2,
+    Ranger: 3,
+    Rogue: 4,
+    Sorcerer: 2,
+    Warlock: 2,
+    Wizard: 2,
+    "Blood Hunter": 2,
+  };
+
+  // For “correctness”: class-locked save profs (standard PHB)
+  const CLASS_SAVE_PROFS = {
+    Barbarian: ["STR","CON"],
+    Bard: ["DEX","CHA"],
+    Cleric: ["WIS","CHA"],
+    Druid: ["INT","WIS"],
+    Fighter: ["STR","CON"],
+    Gunslinger: ["DEX","WIS"], // homebrew-ish guess; change if you want
+    Monk: ["STR","DEX"],
+    Paladin: ["WIS","CHA"],
+    Ranger: ["STR","DEX"],
+    Rogue: ["DEX","INT"],
+    Sorcerer: ["CON","CHA"],
+    Warlock: ["WIS","CHA"],
+    Wizard: ["INT","WIS"],
+    "Blood Hunter": ["DEX","INT"], // common homebrew choice; change if needed
+  };
+
+  // For skills: give a selectable pool per class (standard-ish)
+  const CLASS_SKILL_POOLS = {
+    Barbarian: ["athletics","animal","intimidation","nature","perception","survival"],
+    Bard: ["acrobatics","animal","arcana","athletics","deception","history","insight","intimidation","investigation","medicine","nature","perception","performance","persuasion","religion","sleight","stealth","survival"],
+    Cleric: ["history","insight","medicine","persuasion","religion"],
+    Druid: ["arcana","animal","insight","medicine","nature","perception","religion","survival"],
+    Fighter: ["acrobatics","animal","athletics","history","insight","intimidation","perception","survival"],
+    Gunslinger: ["acrobatics","athletics","history","insight","intimidation","investigation","perception","sleight","stealth","survival"], // editable
+    Monk: ["acrobatics","athletics","history","insight","religion","stealth"],
+    Paladin: ["athletics","insight","intimidation","medicine","persuasion","religion"],
+    Ranger: ["animal","athletics","insight","investigation","nature","perception","stealth","survival"],
+    Rogue: ["acrobatics","athletics","deception","insight","intimidation","investigation","perception","performance","persuasion","sleight","stealth"],
+    Sorcerer: ["arcana","deception","insight","intimidation","persuasion","religion"],
+    Warlock: ["arcana","deception","history","intimidation","investigation","nature","religion"],
+    Wizard: ["arcana","history","insight","investigation","medicine","religion"],
+    "Blood Hunter": ["acrobatics","arcana","athletics","history","insight","investigation","nature","perception","stealth","survival"],
+  };
+
+  const saveProfs = new Set();   // will be auto-locked to class default; no checkbox
+  const skillProfs = new Set();  // user-select within pool, limited by count
+
+  function saveProfTotal() { return CLASS_SAVE_PROF_COUNT; }
+  function skillProfTotal() {
+    const cls = el.cls?.value || "";
+    return CLASS_SKILL_PROF_COUNT[cls] ?? 2;
+  }
+  function skillPool() {
+    const cls = el.cls?.value || "";
+    return new Set(CLASS_SKILL_POOLS[cls] || SKILL_DEFS.map(s => s.id));
+  }
+
+  function renderSavingThrows() {
+    if (!el.saveList) return;
+    const cls = el.cls?.value || "";
+    saveProfs.clear();
+    (CLASS_SAVE_PROFS[cls] || []).forEach(k => saveProfs.add(k));
+
+    if (el.saveProfTotal) el.saveProfTotal.textContent = String(saveProfTotal());
+    if (el.saveProfLeft) el.saveProfLeft.textContent = "0"; // fixed, class-locked
+
+    el.saveList.innerHTML = "";
+    const prof = pb(num(el.level?.value, 1));
+
+    SAVE_DEFS.forEach((s) => {
+      const abilMod = mod(el[s.key]?.value);
+      const proficient = saveProfs.has(s.key);
+      const total = abilMod + (proficient ? prof : 0);
+
+      const row = document.createElement("div");
+      row.className = "checkRow";
+      row.innerHTML = `
+        <div class="left">
+          <input type="checkbox" disabled ${proficient ? "checked" : ""} aria-label="${s.name} save proficiency (class-locked)" />
+          <div>
+            <div class="name">${s.name}</div>
+            <div class="meta">${s.key} • mod ${fmtMod(abilMod)} ${proficient ? `• +PB (${prof})` : ""}</div>
+          </div>
+        </div>
+        <div class="pill">${fmtMod(total)}</div>
+      `;
+      el.saveList.appendChild(row);
+    });
+  }
+
+  function renderSkills() {
+    if (!el.skillList) return;
+
+    const pool = skillPool();
+    const totalAllowed = skillProfTotal();
+    if (el.skillProfTotal) el.skillProfTotal.textContent = String(totalAllowed);
+
+    // purge profs not in pool
+    [...skillProfs].forEach((id) => { if (!pool.has(id)) skillProfs.delete(id); });
+
+    const prof = pb(num(el.level?.value, 1));
+    const remaining = Math.max(0, totalAllowed - skillProfs.size);
+    if (el.skillProfLeft) el.skillProfLeft.textContent = String(remaining);
+
+    el.skillList.innerHTML = "";
+    SKILL_DEFS.forEach((sk) => {
+      const abilMod = mod(el[sk.abil]?.value);
+      const proficient = skillProfs.has(sk.id);
+      const total = abilMod + (proficient ? prof : 0);
+
+      const disabled = !proficient && (skillProfs.size >= totalAllowed);
+      const inPool = pool.has(sk.id);
+
+      const row = document.createElement("div");
+      row.className = "checkRow";
+      row.innerHTML = `
+        <div class="left">
+          <input type="checkbox" ${proficient ? "checked" : ""} ${(!inPool || disabled) ? "disabled" : ""} aria-label="${sk.name} proficiency" />
+          <div>
+            <div class="name">${sk.name}</div>
+            <div class="meta">${sk.abil} • mod ${fmtMod(abilMod)} ${proficient ? `• +PB (${prof})` : ""} ${!inPool ? "• (not in class list)" : ""}</div>
+          </div>
+        </div>
+        <div class="pill">${fmtMod(total)}</div>
+      `;
+
+      const cb = row.querySelector('input[type="checkbox"]');
+      cb.addEventListener("change", () => {
+        if (!pool.has(sk.id)) return;
+        if (cb.checked) {
+          if (skillProfs.size >= totalAllowed) { cb.checked = false; return; }
+          skillProfs.add(sk.id);
+        } else {
+          skillProfs.delete(sk.id);
+        }
+        renderSkills();
+        syncPrintArea();
+      });
+
+      el.skillList.appendChild(row);
+    });
+  }
+
+  /* =========================================================
+     DROPDOWNS
+  ========================================================= */
+  function fillSelect(sel, options, placeholder = "— Select —") {
+    if (!sel) return;
+    const prev = sel.value;
+    sel.innerHTML = "";
+    const ph = document.createElement("option");
+    ph.value = "";
+    ph.textContent = placeholder;
+    sel.appendChild(ph);
+    options.forEach((v) => {
+      const o = document.createElement("option");
+      o.value = v;
+      o.textContent = v;
+      sel.appendChild(o);
+    });
+    if ([...sel.options].some((o) => o.value === prev)) sel.value = prev;
+    else sel.value = "";
+  }
+
+  function populateRace() { fillSelect(el.race, Object.keys(DATA.races).sort()); }
+  function populateSubrace() {
+    const r = el.race?.value || "";
+    const subs = DATA.races[r] || [];
+    fillSelect(el.subrace, subs, subs.length ? "— Select —" : "— None —");
+    if (subs.length === 1) el.subrace.value = subs[0];
+  }
+  function populateClass() { fillSelect(el.cls, Object.keys(DATA.classes).sort()); }
+
+  // ✅ Subclass hidden/disabled until class picked + correct options
+  function populateSubclass() {
+    if (!el.subclass) return;
+
+    const c = el.cls?.value || "";
+    const subs = DATA.classes[c] || [];
+    fillSelect(el.subclass, subs, subs.length ? "— Select —" : "— None —");
+
+    const hasClass = !!c;
+    const enabled = hasClass && subs.length > 0;
+    el.subclass.disabled = !enabled;
+
+    if (el.subclassLockHint) {
+      if (!hasClass) el.subclassLockHint.textContent = "Choose a class to unlock subclass options.";
+      else if (!subs.length) el.subclassLockHint.textContent = "No subclass list available for this class.";
+      else el.subclassLockHint.textContent = "";
+    }
+
+    if (subs.length === 1) el.subclass.value = subs[0];
+    if (!enabled) el.subclass.value = "";
+  }
+
+  function populateBackground() { fillSelect(el.background, DATA.backgrounds); }
+
+  // ✅ Personality based on background: always 8 options each
+  function populatePersonality() {
+    const bg = el.background?.value || "";
+    const pack = DATA.personalityByBackground[bg];
+
+    // If no bg picked, show a polite “pick a background” list
+    if (!pack) {
+      const placeholder = ["Pick a Background first."];
+      fillSelect(el.trait, capN(placeholder, 8));
+      fillSelect(el.ideal, capN(placeholder, 8));
+      fillSelect(el.bond, capN(placeholder, 8));
+      fillSelect(el.flaw, capN(placeholder, 8));
+      if (el.personalityHint) el.personalityHint.textContent = "Pick a Background to see 8 options each.";
+      return;
+    }
+
+    fillSelect(el.trait, capN(pack.trait, 8));
+    fillSelect(el.ideal, capN(pack.ideal, 8));
+    fillSelect(el.bond, capN(pack.bond, 8));
+    fillSelect(el.flaw, capN(pack.flaw, 8));
+    if (el.personalityHint) el.personalityHint.textContent = "8 options each (Trait/Ideal/Bond/Flaw) for this Background.";
+  }
+
+  /* =========================================================
+     TABS
+  ========================================================= */
+  function showTab(tabName) {
+    if (el.pages && el.turner) {
+      el.pages.classList.remove("turning");
+      void el.pages.offsetWidth;
+      el.pages.classList.add("turning");
+      setTimeout(() => el.pages.classList.remove("turning"), 760);
+    }
+
+    const btns = $$(".tab[data-tab], .tabBtn[data-tab]");
+    btns.forEach((btn) => {
+      const active = btn.dataset.tab === tabName;
+      btn.classList.toggle("active", active);
+      btn.setAttribute("aria-selected", active ? "true" : "false");
+    });
+
+    $$(".panel").forEach((p) => p.classList.remove("active"));
+
+    const left = $(`panel-${tabName}-left`);
+    const right = $(`panel-${tabName}-right`);
+    if (left) left.classList.add("active");
+    if (right) right.classList.add("active");
+  }
+
+  function wireTabs() {
+    document.addEventListener(
+      "click",
+      (e) => {
+        const btn = e.target.closest(".tab[data-tab], .tabBtn[data-tab]");
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const tab = btn.dataset.tab;
+        if (!tab) return;
+        showTab(tab);
+      },
+      true
+    );
+  }
+
+  /* =========================================================
+     DARK MODE
+  ========================================================= */
+  function setDark(on) {
+    document.body.classList.toggle("dark", !!on);
+    if (el.darkToggle) el.darkToggle.setAttribute("aria-checked", String(!!on));
+    if (el.darkLabel) el.darkLabel.textContent = on ? "Light" : "Dark";
+    try { localStorage.setItem("dn_dark", on ? "1" : "0"); } catch {}
+  }
+  function loadPrefs() {
+    try {
+      const d = localStorage.getItem("dn_dark");
+      if (d !== null) setDark(d === "1");
+    } catch {}
+  }
+
+  /* =========================================================
+     NAME + STATS
+  ========================================================= */
+  const FIRST = {
+    Human: { Male: ["Alden","Bennett","Caleb","Dorian","Ethan","Gareth"], Female: ["Amelia","Briar","Clara","Dahlia","Eliza","Fiona"], Neutral: ["Avery","Quinn","Rowan","Sage","Emery","Finley"] },
+    Elf: { Male: ["Aelar","Theren","Aramil","Erevan","Faelar","Varis"], Female: ["Lia","Meriele","Shava","Ayla","Sariel","Enna"], Neutral: ["Syl","Nym","Vael","Rinn","Aeri","Kiri"] },
+    Tiefling: { Male: ["Akmenos","Barakas","Damakos","Leucis","Mordai","Zeth"], Female: ["Akta","Bryseis","Criella","Makaria","Orianna","Zethira"], Neutral: ["Vex","Nyx","Ash","Onyx","Sable","Rune"] },
+    Aasimar: { Male: ["Aurelian","Cassiel","Lucian","Seraph","Gideon","Malach"], Female: ["Seraphina","Aurelia","Celeste","Liora","Miriel","Elowen"], Neutral: ["Sol","Nova","Sky","Halo","Zenith","Eden"] },
+    Dragonborn: { Male: ["Arjhan","Balasar","Donaar","Kriv","Rhogar","Torinn"], Female: ["Akra","Biri","Daar","Farideh","Harann","Kava"], Neutral: ["Ember","Cinder","Storm","Ash","Scale","Fang"] },
+  };
+  const LAST = {
+    Human: ["Hawthorne","Rivers","Blackwood","Calloway","Marrow","Wren"],
+    Elf: ["Galanodel","Amakiir","Liadon","Siannodel","Holimion","Xiloscient"],
+    Tiefling: ["Ashthorn","Brimstone","Nightvein","Duskmire","Cindersoul","Graveborn"],
+    Aasimar: ["Brightwing","Dawnspear","Lightwarden","Starfall","Radiantmere","Halogaze"],
+    Dragonborn: ["Daardendrian","Kepeshkmolik","Turnuroth","Clethtinthiallor","Uadjit","Vorjhan"],
+  };
+
+  function genderKey() {
+    const g = (el.gender?.value || "").toLowerCase();
+    if (g.startsWith("m")) return "Male";
+    if (g.startsWith("f")) return "Female";
+    return "Neutral";
+  }
+  function nameKey() {
+    const r = el.race?.value || "Human";
+    return FIRST[r] ? r : "Human";
+  }
+  function autoName(force = true) {
+    if (!el.charName) return;
+    if (!canAuto(el.charName, force)) return;
+
+    const key = nameKey();
+    const gk = genderKey();
+    const firstPool = (FIRST[key] && (FIRST[key][gk] || FIRST[key].Neutral)) || FIRST.Human.Neutral;
+    const lastPool = LAST[key] || LAST.Human;
+
+    setAuto(el.charName, `${pick(firstPool)} ${pick(lastPool)}`);
+  }
+
+  function dice(s) { return 1 + Math.floor(Math.random() * s); }
+  function roll4d6drop() {
+    const r = [dice(6), dice(6), dice(6), dice(6)].sort((a, b) => a - b);
+    return r[1] + r[2] + r[3];
+  }
+
+  const CLASS_PRIORITIES = {
+    Barbarian: ["STR","CON","DEX","WIS","CHA","INT"],
+    Bard: ["CHA","DEX","CON","WIS","INT","STR"],
+    Cleric: ["WIS","CON","STR","DEX","CHA","INT"],
+    Druid: ["WIS","CON","DEX","INT","CHA","STR"],
+    Fighter: ["STR","CON","DEX","WIS","CHA","INT"],
+    Gunslinger: ["DEX","CON","WIS","INT","CHA","STR"],
+    Monk: ["DEX","WIS","CON","STR","INT","CHA"],
+    Paladin: ["STR","CHA","CON","DEX","WIS","INT"],
+    Ranger: ["DEX","WIS","CON","STR","INT","CHA"],
+    Rogue: ["DEX","CON","INT","WIS","CHA","STR"],
+    Sorcerer: ["CHA","CON","DEX","WIS","INT","STR"],
+    Warlock: ["CHA","CON","DEX","WIS","INT","STR"],
+    Wizard: ["INT","CON","DEX","WIS","CHA","STR"],
+    "Blood Hunter": ["DEX","CON","WIS","STR","INT","CHA"],
+  };
+
+  function autoStats(force = true) {
+    const cls = el.cls?.value || "Fighter";
+    const order = CLASS_PRIORITIES[cls] || ["STR","DEX","CON","INT","WIS","CHA"];
+    const rolls = Array.from({ length: 6 }, roll4d6drop).sort((a, b) => b - a);
+
+    const mapped = {};
+    order.forEach((stat, i) => (mapped[stat] = rolls[i]));
+
+    ["STR","DEX","CON","INT","WIS","CHA"].forEach((stat) => {
+      if (el[stat]) setAuto(el[stat], String(mapped[stat] ?? 10));
+    });
+
+    recalcAll(true);
+  }
+
+  /* =========================================================
+     ARMOR + COMBAT
+  ========================================================= */
+  function fillArmorDropdown(forcePick = true) {
+    if (!el.armorType) return;
+
+    const race = el.race?.value || "";
+    const cls = el.cls?.value || "";
+    const prev = el.armorType.value;
+
+    el.armorType.innerHTML = "";
+
+    if (race === "Tortle") {
+      const o = document.createElement("option");
+      o.value = "Tortle Natural Armor";
+      o.textContent = "Tortle Natural Armor";
+      el.armorType.appendChild(o);
+      el.armorType.value = "Tortle Natural Armor";
+      return;
+    }
+
+    const allowed = CLASS_ARMOR[cls] || ["None / Unarmored", "Leather (Light)"];
+    allowed.forEach((name) => {
+      const o = document.createElement("option");
+      o.value = name;
+      o.textContent = name;
+      el.armorType.appendChild(o);
+    });
+
+    if ([...el.armorType.options].some((o) => o.value === prev)) el.armorType.value = prev;
+    else if (forcePick) el.armorType.value = allowed[0];
+  }
+
+  function avgDie(dieStr) {
+    const sides = num(String(dieStr || "d8").replace("d", ""), 8);
+    return Math.floor(sides / 2 + 1);
+  }
+
+  function calcAC(force = false) {
+    if (!el.ac) return;
+    if (!canAuto(el.ac, force)) return;
+
+    const race = el.race?.value || "";
+    const armorName = el.armorType?.value || "None / Unarmored";
+    const armor = ARMOR_OPTIONS.find((a) => a.name === armorName) || ARMOR_OPTIONS[0];
+    const dexM = mod(el.DEX?.value);
+
+    let ac = armor.base;
+    if (race === "Tortle" || armor.kind === "tortle") ac = 17;
+    else if (armor.kind === "none" || armor.kind === "light") ac = armor.base + dexM;
+    else if (armor.kind === "medium") ac = armor.base + Math.min(2, dexM);
+    else if (armor.kind === "heavy") ac = armor.base;
+
+    setAuto(el.ac, String(ac));
+  }
+
+  function recalcCombat(force = false) {
+    const lvl = num(el.level?.value, 1);
+    const cls = el.cls?.value || "Fighter";
+    const race = el.race?.value || "Human";
+
+    if (el.profBonus && canAuto(el.profBonus, true)) setAuto(el.profBonus, "+" + pb(lvl));
+    if (el.speed && canAuto(el.speed, force)) setAuto(el.speed, `${RACE_SPEED[race] ?? 30} ft`);
+    if (el.initiative && canAuto(el.initiative, force)) setAuto(el.initiative, fmtMod(mod(el.DEX?.value)));
+
+    const die = HIT_DIE[cls] || "d8";
+    if (el.hitDice && canAuto(el.hitDice, force)) setAuto(el.hitDice, `${lvl}${die}`);
+
+    const conM = mod(el.CON?.value);
+    const sides = num(String(die).replace("d", ""), 8);
+    const hp1 = Math.max(1, sides + conM);
+    const maxHp = Math.max(1, hp1 + Math.max(0, lvl - 1) * (avgDie(die) + conM));
+
+    if (el.maxHp && canAuto(el.maxHp, force)) setAuto(el.maxHp, String(maxHp));
+    if (el.hp && canAuto(el.hp, force)) setAuto(el.hp, el.maxHp?.value || String(maxHp));
+
+    if (el.passivePerception && canAuto(el.passivePerception, force)) setAuto(el.passivePerception, String(10 + mod(el.WIS?.value)));
+
+    ["STR","DEX","CON","INT","WIS","CHA"].forEach((stat) => {
+      const box = $("mod" + stat);
+      if (box) box.textContent = fmtMod(mod(el[stat]?.value));
+    });
+  }
+
+  /* =========================================================
+     SPELLS (10 per caster class per level) + descriptions
+  ========================================================= */
+  const pickedSpells = new Set();
+  const pickedWeapons = new Set();
+
+  function classHasSpells() {
+    const cls = el.cls?.value || "";
+    const lvl = num(el.level?.value, 1);
+    if (CASTING_ABILITY[cls]) return true;
+    if ((cls === "Paladin" || cls === "Ranger") && lvl >= 2) return true;
+    return false;
+  }
+
+  function spellAbilityKey() {
+    const cls = el.cls?.value || "";
+    const lvl = num(el.level?.value, 1);
+    if (CASTING_ABILITY[cls]) return CASTING_ABILITY[cls];
+    if (cls === "Ranger" && lvl >= 2) return "WIS";
+    if (cls === "Paladin" && lvl >= 2) return "CHA";
+    return "";
+  }
+
+  function spellLimit() {
+    const cls = el.cls?.value || "";
+    const lvl = num(el.level?.value, 1);
+    if (!classHasSpells()) return 0;
+
+    // Simple “builder” cap. Adjust whenever.
+    if (cls === "Wizard") return Math.max(3, 3 + Math.floor((lvl - 1) / 2));
+    if (cls === "Cleric" || cls === "Druid") return Math.max(3, 3 + Math.max(0, mod(el.WIS?.value)));
+    if (["Bard","Sorcerer","Warlock"].includes(cls)) return Math.max(2, 2 + Math.floor(lvl / 2));
+    if (["Paladin","Ranger"].includes(cls)) return Math.max(2, 2 + Math.floor((lvl - 2) / 2));
+    return 0;
+  }
+
+  function updateSpellHeader() {
+    const cls = el.cls?.value || "";
+    const lvl = num(el.level?.value, 1);
+
+    const stat = spellAbilityKey();
+    const abilMod = stat ? mod(el[stat]?.value) : 0;
+    const prof = pb(lvl);
+    const dc = 8 + prof + abilMod;
+    const atk = prof + abilMod;
+
+    if (el.spellAbilityText) el.spellAbilityText.textContent = stat || "—";
+    if (el.spellDCText) el.spellDCText.textContent = stat ? String(dc) : "—";
+    if (el.spellAtkText) el.spellAtkText.textContent = stat ? fmtMod(atk) : "—";
+
+    const limit = spellLimit();
+    const left = Math.max(0, limit - pickedSpells.size);
+    if (el.spellsLeft) el.spellsLeft.textContent = String(left);
+
+    // Remove spells if class changes
+    if (!classHasSpells()) pickedSpells.clear();
+
+    // If class has spells, ensure spell list exists
+    if (classHasSpells() && !SPELLS_BY_CLASS[cls]) {
+      // fallback to Wizard lists already guaranteed above
+    }
+  }
+
+  function getSpellsForClassAndLevel(cls, level) {
+    const byClass = SPELLS_BY_CLASS[cls] || {};
+    const arr = byClass[level];
+    return Array.isArray(arr) ? arr : [];
+  }
+
+  function renderSpells() {
+    if (!el.spellCards) return;
+
+    updateSpellHeader();
+
+    const cls = el.cls?.value || "";
+    if (!classHasSpells()) {
+      el.spellCards.innerHTML = `<div class="muted">No spells for your class at this level.</div>`;
+      return;
+    }
+
+    const q = (el.spellSearch?.value || "").trim().toLowerCase();
+    const lvlFilter = el.spellLevelFilter?.value ?? "";
+    const limit = spellLimit();
+
+    // Build list from per-level 10 options
+    let list = [];
+    const levels = (lvlFilter === "") ? [...Array(10)].map((_,i)=>i) : [Number(lvlFilter)];
+    levels.forEach((lv) => {
+      getSpellsForClassAndLevel(cls, lv).forEach((sp) => {
+        list.push({ ...sp, level: lv });
+      });
+    });
+
+    // Search filter
+    if (q) {
+      list = list.filter((sp) => {
+        const t = (sp.name + " " + (sp.school||"") + " " + (sp.desc||"")).toLowerCase();
+        return t.includes(q);
+      });
+    }
+
+    // Sort: level then name
+    list.sort((a,b) => (a.level - b.level) || a.name.localeCompare(b.name));
+
+    if (!list.length) {
+      el.spellCards.innerHTML = `<div class="muted">No spells match your filters.</div>`;
+      return;
+    }
+
+    el.spellCards.innerHTML = "";
+    list.forEach((sp) => {
+      const picked = pickedSpells.has(sp.name);
+      const disabled = !picked && pickedSpells.size >= limit;
+
+      const card = document.createElement("div");
+      card.className = "miniCard";
+      card.innerHTML = `
+        <div class="name">${sp.name}</div>
+        <div class="line">Level ${sp.level === 0 ? "Cantrip" : sp.level} • ${safe(sp.school)}</div>
+        <div class="line muted" style="white-space:pre-wrap;">${safe(sp.desc)}</div>
+        <div class="pick">
+          <button type="button" class="${picked ? "danger" : "primary"}" ${disabled ? "disabled" : ""}>
+            ${picked ? "Remove" : "Add"}
+          </button>
+          <span class="muted">${picked ? "Selected" : (disabled ? "Limit reached" : "")}</span>
+        </div>
+      `;
+      card.querySelector("button").addEventListener("click", () => {
+        if (pickedSpells.has(sp.name)) pickedSpells.delete(sp.name);
+        else if (pickedSpells.size < limit) pickedSpells.add(sp.name);
+        renderSpells();
+        syncPrintArea();
+      });
+      el.spellCards.appendChild(card);
+    });
+  }
+
+  /* =========================================================
+     WEAPONS (descriptions)
+  ========================================================= */
+  function weaponLimit() {
+    const cls = el.cls?.value || "";
+    if (["Fighter","Paladin","Ranger","Barbarian"].includes(cls)) return 4;
+    if (["Rogue","Bard","Cleric","Druid","Monk"].includes(cls)) return 3;
+    if (["Wizard","Sorcerer","Warlock"].includes(cls)) return 2;
+    return 3;
+  }
+
+  function renderWeapons() {
+    if (!el.weaponCards) return;
+
+    const q = (el.weaponSearch?.value || "").trim().toLowerCase();
+    const limit = weaponLimit();
+
+    if (el.weaponsLeft) el.weaponsLeft.textContent = String(Math.max(0, limit - pickedWeapons.size));
+
+    const list = WEAPONS
+      .filter((w) => !q || (w.name + " " + w.type + " " + w.props + " " + w.desc).toLowerCase().includes(q))
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    el.weaponCards.innerHTML = "";
+    list.forEach((w) => {
+      const picked = pickedWeapons.has(w.name);
+      const disabled = !picked && pickedWeapons.size >= limit;
+
+      const card = document.createElement("div");
+      card.className = "miniCard";
+      card.innerHTML = `
+        <div class="name">${w.name}</div>
+        <div class="line">${w.type} • ${w.dmg}</div>
+        <div class="line muted">${w.props}</div>
+        <div class="line muted" style="white-space:pre-wrap;">${w.desc}</div>
+        <div class="pick">
+          <button type="button" class="${picked ? "danger" : "primary"}" ${disabled ? "disabled" : ""}>
+            ${picked ? "Remove" : "Add"}
+          </button>
+          <span class="muted">${picked ? "Selected" : (disabled ? "Limit reached" : "")}</span>
+        </div>
+      `;
+      card.querySelector("button").addEventListener("click", () => {
+        if (pickedWeapons.has(w.name)) pickedWeapons.delete(w.name);
+        else if (pickedWeapons.size < limit) pickedWeapons.add(w.name);
+        renderWeapons();
+        syncPrintArea();
+      });
+      el.weaponCards.appendChild(card);
+    });
+
+    // Auto-fill weaponNotes (right page) with chosen weapon descriptions
+    if (el.weaponNotes) {
+      const chosen = [...pickedWeapons].map((name) => WEAPONS.find(w => w.name === name)).filter(Boolean);
+      el.weaponNotes.value = chosen.length
+        ? chosen.map((w) => `${w.name} — ${w.type} • ${w.dmg}\n${w.props}\n${w.desc}`).join("\n\n")
+        : "";
+    }
+  }
+
+  /* =========================================================
+     INVENTORY (simple list for print)
+  ========================================================= */
+  const inventory = []; // {name, qty, wt}
+
+  function calcCarry() {
+    const str = num(el.STR?.value, 10);
+    const cap = str * 15;
+    const total = inventory.reduce((a, it) => a + (num(it.qty, 1) * num(it.wt, 0)), 0);
+    if (el.carryCapacity) el.carryCapacity.value = String(cap);
+    if (el.carryTotal) el.carryTotal.value = String(total.toFixed(1));
+    if (el.carryStatus) {
+      el.carryStatus.value = total <= cap ? "Normal" : (total <= cap * 1.5 ? "Encumbered" : "Overloaded");
+    }
+  }
+
+  function renderInventoryTable() {
+    if (!el.invTbody) return;
+    el.invTbody.innerHTML = "";
+    inventory.forEach((it, idx) => {
+      const tr = document.createElement("tr");
+      const total = (num(it.qty,1) * num(it.wt,0)).toFixed(1);
+      tr.innerHTML = `
+        <td>${safe(it.name)}</td>
+        <td>${safe(it.qty)}</td>
+        <td>${safe(it.wt)}</td>
+        <td>${total}</td>
+        <td><button type="button" data-del="${idx}">X</button></td>
+      `;
+      tr.querySelector("button").addEventListener("click", () => {
+        inventory.splice(idx, 1);
+        renderInventoryTable();
+        calcCarry();
+        syncPrintArea();
+      });
+      el.invTbody.appendChild(tr);
+    });
+
+    if (el.inventorySummary) {
+      el.inventorySummary.value = inventory.length
+        ? inventory.map((it) => `${it.qty}× ${it.name} (${it.wt} lb each)`).join("\n")
+        : "";
+    }
+  }
+
+  /* =========================================================
+     INFO BOXES (kept simple placeholders)
+  ========================================================= */
+  function updateInfoBoxes() {
+    if (el.classInfoBox) el.classInfoBox.value = el.cls?.value ? `${el.cls.value}\n\n(Replace with class summary.)` : "Pick a class to see info.";
+    if (el.subclassInfoBox) el.subclassInfoBox.value = el.subclass?.value ? `${el.subclass.value}\n\n(Replace with subclass summary.)` : "Pick a subclass to see info.";
+    if (el.raceInfoBox) el.raceInfoBox.value = el.race?.value ? `${el.race.value}\n\n(Replace with race summary.)` : "Pick a race to see info.";
+    if (el.subraceInfoBox) el.subraceInfoBox.value = el.subrace?.value ? `${el.subrace.value}\n\n(Replace with subrace summary.)` : "Pick a subrace to see info.";
+  }
+
+  /* =========================================================
+     PRINT SYNC (fix printed character sheet)
+  ========================================================= */
+  function syncPrintArea() {
+    // Header names
+    const cn = el.charName?.value || "Character Name";
+    if (el.p_charName) el.p_charName.textContent = cn;
+    if (el.p_charName2) el.p_charName2.textContent = cn;
+    if (el.p_charName3) el.p_charName3.textContent = cn;
+    if (el.p_charName4) el.p_charName4.textContent = cn;
+    if (el.p_charName5) el.p_charName5.textContent = cn;
+
+    // Meta line
+    if (el.p_metaLine) {
+      const bits = [
+        el.cls?.value ? `Class: ${el.cls.value}` : "",
+        el.subclass?.value ? `(${el.subclass.value})` : "",
+        el.level?.value ? `Lvl ${el.level.value}` : "",
+        el.background?.value ? `BG: ${el.background.value}` : "",
+        el.race?.value ? `Race: ${el.race.value}` : "",
+        el.subrace?.value ? `(${el.subrace.value})` : "",
+        el.alignment?.value ? `Align: ${el.alignment.value}` : "",
+        el.playerName?.value ? `Player: ${el.playerName.value}` : "",
+      ].filter(Boolean);
+      el.p_metaLine.textContent = bits.join(" • ");
+    }
+
+    // Abilities (print blocks)
+    if (el.p_abilities) {
+      el.p_abilities.innerHTML = "";
+      ["STR","DEX","CON","INT","WIS","CHA"].forEach((stat) => {
+        const v = num($(stat)?.value, 10);
+        const m = mod(v);
+        const box = document.createElement("div");
+        box.className = "pStat";
+        box.innerHTML = `
+          <div class="sName">${stat}</div>
+          <div class="sVal">${v}</div>
+          <div class="sMod">${fmtMod(m)}</div>
+        `;
+        el.p_abilities.appendChild(box);
+      });
+    }
+
+    // Saves
+    if (el.p_saves) {
+      const prof = pb(num(el.level?.value, 1));
+      el.p_saves.innerHTML = "";
+      SAVE_DEFS.forEach((s) => {
+        const abilMod = mod(el[s.key]?.value);
+        const proficient = saveProfs.has(s.key);
+        const total = abilMod + (proficient ? prof : 0);
+        const row = document.createElement("div");
+        row.className = "pListRow";
+        row.innerHTML = `<div class="n">${s.name}</div><div class="v">${fmtMod(total)}</div>`;
+        el.p_saves.appendChild(row);
+      });
+    }
+
+    // Skills
+    if (el.p_skills) {
+      const prof = pb(num(el.level?.value, 1));
+      el.p_skills.innerHTML = "";
+      SKILL_DEFS.forEach((sk) => {
+        const abilMod = mod(el[sk.abil]?.value);
+        const proficient = skillProfs.has(sk.id);
+        const total = abilMod + (proficient ? prof : 0);
+        const row = document.createElement("div");
+        row.className = "pListRow";
+        row.innerHTML = `<div class="n">${sk.name}</div><div class="v">${fmtMod(total)}</div>`;
+        el.p_skills.appendChild(row);
+      });
+    }
+
+    // Combat block
+    if (el.p_combat) {
+      el.p_combat.textContent =
+        `AC: ${safe(el.ac?.value)}\n` +
+        `Initiative: ${safe(el.initiative?.value)}\n` +
+        `Speed: ${safe(el.speed?.value)}\n` +
+        `HP: ${safe(el.hp?.value)}\n` +
+        `Temp HP: ${safe(el.tempHp?.value)}\n` +
+        `Max HP: ${safe(el.maxHp?.value)}\n` +
+        `Hit Dice: ${safe(el.hitDice?.value)}\n` +
+        `Prof: ${safe(el.profBonus?.value)}\n` +
+        `Passive Perception: ${safe(el.passivePerception?.value)}`;
+    }
+
+    // Personality block
+    if (el.p_personality) {
+      const lines = [
+        el.trait?.value ? `Trait: ${el.trait.value}` : "",
+        el.ideal?.value ? `Ideal: ${el.ideal.value}` : "",
+        el.bond?.value ? `Bond: ${el.bond.value}` : "",
+        el.flaw?.value ? `Flaw: ${el.flaw.value}` : "",
+      ].filter(Boolean);
+      el.p_personality.textContent = lines.join("\n");
+    }
+
+    // Notes / Features
+    if (el.p_notesMini) el.p_notesMini.textContent = safe($("notes")?.value);
+    if (el.p_featuresTraits) el.p_featuresTraits.textContent = safe(el.featuresTraits?.value);
+
+    // Page 2 appearance
+    if (el.p_appearanceLine) {
+      const bits = [
+        $("age")?.value ? `Age ${$("age").value}` : "",
+        $("height")?.value ? `Height ${$("height").value}` : "",
+        $("weight")?.value ? `Weight ${$("weight").value}` : "",
+        $("eyes")?.value ? `Eyes ${$("eyes").value}` : "",
+        $("skin")?.value ? `Skin ${$("skin").value}` : "",
+        $("hair")?.value ? `Hair ${$("hair").value}` : "",
+      ].filter(Boolean);
+      el.p_appearanceLine.textContent = bits.join(" • ");
+    }
+    if (el.p_appearance) {
+      el.p_appearance.textContent =
+        `Age: ${safe($("age")?.value)}\n` +
+        `Height: ${safe($("height")?.value)}\n` +
+        `Weight: ${safe($("weight")?.value)}\n` +
+        `Hair: ${safe($("hair")?.value)}\n` +
+        `Eyes: ${safe($("eyes")?.value)}\n` +
+        `Skin: ${safe($("skin")?.value)}`;
+    }
+
+    // Portrait in print
+    if (el.p_portraitWrap) {
+      el.p_portraitWrap.innerHTML = "";
+      if (el.portraitImg && el.portraitImg.src) {
+        const img = document.createElement("img");
+        img.src = el.portraitImg.src;
+        img.style.maxWidth = "100%";
+        img.style.maxHeight = "240px";
+        img.style.display = "block";
+        el.p_portraitWrap.appendChild(img);
+      } else {
+        el.p_portraitWrap.textContent = "—";
+      }
+    }
+
+    // Backstory
+    if (el.p_backstory) el.p_backstory.textContent = safe($("backstory")?.value);
+
+    // Weapons print
+    if (el.p_weapons) {
+      el.p_weapons.innerHTML = "";
+      const chosen = [...pickedWeapons].map((name) => WEAPONS.find((x) => x.name === name)).filter(Boolean);
+      if (!chosen.length) {
+        el.p_weapons.innerHTML = `<div class="pCard"><div class="n">—</div><div class="d">No weapons selected.</div></div>`;
+      } else {
+        chosen.forEach((w) => {
+          const card = document.createElement("div");
+          card.className = "pCard";
+          card.innerHTML = `<div class="n">${w.name}</div><div class="d">${w.type} • ${w.dmg}\n${w.props}\n${w.desc}</div>`;
+          el.p_weapons.appendChild(card);
+        });
+      }
+    }
+
+    // Inventory print table
+    if (el.p_inventoryTable) {
+      const rows = inventory.length ? inventory : [];
+      const table = document.createElement("table");
+      table.className = "pInvBlankTable";
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>Item</th><th>Qty</th><th>Each (lb)</th><th>Total (lb)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      `;
+      const tb = table.querySelector("tbody");
+      if (!rows.length) {
+        // show blank lines (10 rows)
+        for (let i = 0; i < 10; i++) {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>&nbsp;</td><td></td><td></td><td></td>`;
+          tb.appendChild(tr);
+        }
+      } else {
+        rows.forEach((it) => {
+          const tr = document.createElement("tr");
+          const total = (num(it.qty,1) * num(it.wt,0)).toFixed(1);
+          tr.innerHTML = `<td>${safe(it.name)}</td><td>${safe(it.qty)}</td><td>${safe(it.wt)}</td><td>${total}</td>`;
+          tb.appendChild(tr);
+        });
+      }
+      el.p_inventoryTable.innerHTML = "";
+      el.p_inventoryTable.appendChild(table);
+    }
+
+    // Spells print
+    if (el.p_spells) {
+      const cls = el.cls?.value || "";
+      el.p_spells.innerHTML = "";
+      if (!classHasSpells()) {
+        el.p_spells.innerHTML = `<div class="pCard"><div class="n">—</div><div class="d">No spells.</div></div>`;
+      } else {
+        const chosen = [...pickedSpells];
+        if (!chosen.length) {
+          el.p_spells.innerHTML = `<div class="pCard"><div class="n">—</div><div class="d">No spells selected.</div></div>`;
+        } else {
+          chosen.forEach((name) => {
+            // find spell in any level list for that class
+            let found = null;
+            for (let lv = 0; lv <= 9; lv++) {
+              const arr = getSpellsForClassAndLevel(cls, lv);
+              const hit = arr.find((s) => s.name === name);
+              if (hit) { found = { ...hit, level: lv }; break; }
+            }
+            const card = document.createElement("div");
+            card.className = "pCard";
+            card.innerHTML = `<div class="n">${name}</div><div class="d">${found ? `Lvl ${found.level === 0 ? "Cantrip" : found.level} • ${safe(found.school)}\n${safe(found.desc)}` : ""}</div>`;
+            el.p_spells.appendChild(card);
+          });
+        }
+      }
+    }
+
+    // Page 5 notes
+    if (el.p_inventoryNotes) el.p_inventoryNotes.textContent = safe(el.inventoryNotes?.value);
+    if (el.p_treasureAttune) el.p_treasureAttune.textContent = safe($("treasureAttune")?.value);
+  }
+
+  /* =========================================================
+     SAVE / LOAD / RESET
+  ========================================================= */
+  function collectState() {
+    const nodes = $$("input[id], select[id], textarea[id]");
+    const data = {};
+    nodes.forEach((n) => {
+      if (n.type === "file") return;
+      if (n.type === "checkbox") data[n.id] = n.checked ? "1" : "0";
+      else data[n.id] = n.value;
+      if (n.dataset && "auto" in n.dataset) data[`__auto__${n.id}`] = n.dataset.auto;
+    });
+
+    data.__pickedSpells = [...pickedSpells];
+    data.__pickedWeapons = [...pickedWeapons];
+    data.__skillProfs = [...skillProfs];
+    data.__inventory = inventory.map((x) => ({ ...x }));
+    return data;
+  }
+
+  function applyState(data) {
+    if (!data || typeof data !== "object") return;
+
+    const nodes = $$("input[id], select[id], textarea[id]");
+    nodes.forEach((n) => {
+      if (n.type === "file") return;
+      if (!(n.id in data)) return;
+
+      if (n.type === "checkbox") n.checked = data[n.id] === "1";
+      else n.value = safe(data[n.id]);
+
+      const k = `__auto__${n.id}`;
+      if (k in data && n.dataset) n.dataset.auto = safe(data[k]);
+    });
+
+    populateSubrace();
+    populateSubclass();
+    populatePersonality();
+
+    pickedSpells.clear();
+    (data.__pickedSpells || []).forEach((x) => pickedSpells.add(x));
+    pickedWeapons.clear();
+    (data.__pickedWeapons || []).forEach((x) => pickedWeapons.add(x));
+
+    skillProfs.clear();
+    (data.__skillProfs || []).forEach((x) => skillProfs.add(x));
+
+    inventory.length = 0;
+    (data.__inventory || []).forEach((x) => inventory.push({ name: safe(x.name), qty: num(x.qty,1), wt: num(x.wt,0) }));
+
+    recalcAll(true);
+  }
+
+  function saveSheet() {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(collectState()));
+      alert("Saved!");
+    } catch {
+      alert("Save failed (storage blocked or full).");
+    }
+  }
+
+  function loadSheet() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return alert("No saved sheet found.");
+      applyState(JSON.parse(raw));
+      alert("Loaded!");
+    } catch {
+      alert("Load failed (corrupt save).");
+    }
+  }
+
+  function resetSheet() {
+    if (!confirm("Reset the whole sheet?")) return;
+
+    try { localStorage.removeItem(LS_KEY); } catch {}
+
+    const nodes = $$("input[id], select[id], textarea[id]");
+    nodes.forEach((n) => {
+      if (n.type === "file") return;
+      if (n.id === "level") n.value = "1";
+      else if (n.tagName === "SELECT") n.value = "";
+      else n.value = "";
+      if (n.dataset) delete n.dataset.auto;
+    });
+
+    pickedSpells.clear();
+    pickedWeapons.clear();
+    skillProfs.clear();
+    inventory.length = 0;
+
+    populateRace();
+    populateSubrace();
+    populateClass();
+    populateSubclass();
+    populateBackground();
+    populatePersonality();
+    fillArmorDropdown(true);
+
+    recalcAll(true);
+    showTab("character");
+  }
+
+  /* =========================================================
+     PORTRAIT PREVIEW
+  ========================================================= */
+  function wirePortrait() {
+    if (!el.portraitFile || !el.portraitImg) return;
+    el.portraitFile.addEventListener("change", () => {
+      const file = el.portraitFile.files?.[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      el.portraitImg.src = url;
+      el.portraitImg.style.display = "";
+      if (el.portraitPlaceholder) el.portraitPlaceholder.style.display = "none";
+      syncPrintArea();
+    });
+  }
+
+  /* =========================================================
+     ONE PIPELINE
+  ========================================================= */
+  function recalcAll(force = false) {
+    fillArmorDropdown(false);
+    recalcCombat(force);
+    calcAC(force);
+    updateInfoBoxes();
+
+    renderSavingThrows();
+    renderSkills();
+
+    renderSpells();
+    renderWeapons();
+
+    calcCarry();
+    renderInventoryTable();
+
+    syncPrintArea();
+  }
+
+  /* =========================================================
+     WIRING
+  ========================================================= */
+  function wire() {
+    wireTabs();
+
+    el.darkToggle?.addEventListener("click", () => setDark(!document.body.classList.contains("dark")));
+
+    // Dropdown cascades
+    el.race?.addEventListener("change", () => {
+      populateSubrace();
+      fillArmorDropdown(true);
+      autoName(false);
+      recalcAll(true);
+    });
+    el.subrace?.addEventListener("change", () => { updateInfoBoxes(); syncPrintArea(); });
+
+    el.cls?.addEventListener("change", () => {
+      populateSubclass(); //
+      fillArmorDropdown(true);
+
+      // reset picks that depend on class
+      pickedSpells.clear();
+      pickedWeapons.clear();
+      skillProfs.clear();
+
+      recalcAll(true);
+    });
+    el.subclass?.addEventListener("change", () => { updateInfoBoxes(); syncPrintArea(); });
+
+    el.background?.addEventListener("change", () => {
+      populatePersonality(); // 
+      syncPrintArea();
+    });
+
+    el.gender?.addEventListener("change", () => autoName(false));
+    el.alignment?.addEventListener("change", syncPrintArea);
+    el.level?.addEventListener("input", () => recalcAll(true));
+
+    // Derived manual locks
+    ["charName","ac","initiative","speed","hp","maxHp","hitDice","profBonus","passivePerception"]
+      .forEach((id) => $(id)?.addEventListener("input", (e) => markManual(e.target)));
+
+    // Stats trigger
+    ["STR","DEX","CON","INT","WIS","CHA"].forEach((stat) => el[stat]?.addEventListener("input", () => recalcAll(true)));
+
+    // Armor change
+    el.armorType?.addEventListener("change", () => { calcAC(true); syncPrintArea(); });
+
+    // Buttons
+    el.btnAutoName?.addEventListener("click", () => autoName(true));
+    el.btnAutoStats?.addEventListener("click", () => autoStats(true));
+    el.btnRerollStats?.addEventListener("click", () => autoStats(true));
+    el.levelUp?.addEventListener("click", () => {
+      if (!el.level) return;
+      const next = Math.min(20, num(el.level.value, 1) + 1);
+      setAuto(el.level, String(next));
+      recalcAll(true);
+    });
+    el.applyAutofill?.addEventListener("click", () => recalcAll(true));
+
+    // Spells filters
+    el.spellSearch?.addEventListener("input", renderSpells);
+    el.spellLevelFilter?.addEventListener("change", renderSpells);
+
+    // Weapons search
+    el.weaponSearch?.addEventListener("input", renderWeapons);
+
+    // Inventory add/clear
+    el.btnAddInv?.addEventListener("click", () => {
+      const name = safe(el.invItemName?.value).trim();
+      const qty = Math.max(1, num(el.invItemQty?.value, 1));
+      const wt = Math.max(0, num(el.invItemWt?.value, 0));
+      if (!name) return;
+
+      inventory.push({ name, qty, wt });
+      if (el.invItemName) el.invItemName.value = "";
+      if (el.invItemQty) el.invItemQty.value = "1";
+      if (el.invItemWt) el.invItemWt.value = "0";
+
+      renderInventoryTable();
+      calcCarry();
+      syncPrintArea();
+    });
+    el.btnClearInv?.addEventListener("click", () => {
+      if (!confirm("Clear inventory?")) return;
+      inventory.length = 0;
+      renderInventoryTable();
+      calcCarry();
+      syncPrintArea();
+    });
+
+    // Save/Load/Reset
+    el.btnSave?.addEventListener("click", saveSheet);
+    el.btnLoad?.addEventListener("click", loadSheet);
+    el.btnReset?.addEventListener("click", resetSheet);
+
+    // Export PDF
+    el.btnExportPdf?.addEventListener("click", () => {
+      syncPrintArea();
+      window.print();
+    });
+    window.addEventListener("beforeprint", syncPrintArea);
+
+    // Portrait
+    wirePortrait();
+
+    // Personality: if user changes a select, update print
+    ["trait","ideal","bond","flaw"].forEach((id) => $(id)?.addEventListener("change", syncPrintArea));
+    $("notes")?.addEventListener("input", syncPrintArea);
+    $("backstory")?.addEventListener("input", syncPrintArea);
+    el.featuresTraits?.addEventListener("input", syncPrintArea);
+    el.inventoryNotes?.addEventListener("input", syncPrintArea);
+    $("treasureAttune")?.addEventListener("input", syncPrintArea);
+  }
+
+  /* =========================================================
+     INIT
+  ========================================================= */
+  function init() {
+    populateRace();
+    populateSubrace();
+    populateClass();
+    populateSubclass();      
+    populateBackground();
+    populatePersonality();   
+
+    fillArmorDropdown(true);
+    loadPrefs();
+
+    const firstBtn = document.querySelector(".tab[data-tab], .tabBtn[data-tab]");
+    const initial = (document.querySelector(".tab.active[data-tab], .tabBtn.active[data-tab]")?.dataset.tab)
+      || (firstBtn?.dataset.tab)
+      || "character";
+    showTab(initial);
+
+    recalcAll(true);
+    autoName(false);
+
+    wire();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+
+  // Debug helper
+  window.__syncPrintArea = syncPrintArea;
+
+})();
+</script>
+</html>
+
+
+
+
+
